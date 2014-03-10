@@ -212,7 +212,7 @@
          <item row="0" column="0">
           <widget class="QLabel" name="SwimmerNameText">
            <property name="text">
-            <string>Lifeguard Name :</string>
+            <string>Swimmer Name :</string>
            </property>
           </widget>
          </item>

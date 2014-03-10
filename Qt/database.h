@@ -31,7 +31,7 @@ public:
     bool swimmerQuery(QDate,QDate);
     bool lifeguardQuery(int);
     int getSSNSwimmer();
-    void setSSNSwimmer();
+    void setSSNSwimmer(int);
     string getName();
     void setName(string);
     string getSurname();
@@ -45,7 +45,7 @@ public:
     int getSSNOfLifeguard();
     void setSSNOfLifeguard(int);
     string getNameOfLifeguard();
-    void setNameOfLifeguard();
+    void setNameOfLifeguard(string);
 
 };
 
