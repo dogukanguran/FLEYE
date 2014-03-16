@@ -25,8 +25,8 @@ public:
     Database();
     void openDBConnection();
     void closeDBConnection();
-    bool addSwimmer(int,string,string,int,QDate,string,string,int);
-    bool updateSwimmer(int,string,string,int,string,int);
+    bool addSwimmer(int,QString,QString,int,QDate,QString,QString,int);
+    bool updateSwimmer(int,QString,QString,int,QString,int);
     bool swimmerQuery(int);
     bool swimmerQuery(QDate,QDate);
     bool lifeguardQuery(int);
@@ -36,8 +36,8 @@ public:
     void setName(string);
     string getSurname();
     void setSurname(string);
-    void getTelNo();
-    int setTelNo(int);
+    int getTelNo();
+    void setTelNo(int);
     QDate getEventDate();
     void setEventDate(QDate);
     string getEventLocation();

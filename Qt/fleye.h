@@ -22,9 +22,9 @@ public:
     void setBatteryPercentage(double);
     bool getErrorExistence();
     void setErrorExistence(bool);
-    Coordination& getFLEYECoordination();
+    Coordination* getFLEYECoordination();
     void setFLEYECoordination(Coordination*);
-    Coordination& getTargetCoordination();
+    Coordination* getTargetCoordination();
     void setTargetCoordination(Coordination*);
 };
 

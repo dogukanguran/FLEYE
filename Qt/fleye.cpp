@@ -48,7 +48,7 @@ void FLEYE::setErrorExistence(bool errorExistence)
     this->errorExistence = errorExistence;
 }
 
-Coordination& FLEYE::getFLEYECoordination()
+Coordination* FLEYE::getFLEYECoordination()
 {
     return fleyeCoordination;
 }
@@ -58,7 +58,7 @@ void FLEYE::setFLEYECoordination(Coordination* fleyeCoordination)
     this->fleyeCoordination = fleyeCoordination;
 }
 
-Coordination& FLEYE::getTargetCoordination()
+Coordination* FLEYE::getTargetCoordination()
 {
     return targetCoordination;
 }

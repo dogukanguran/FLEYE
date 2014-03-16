@@ -38,25 +38,43 @@ void Database::closeDBConnection()
     qDebug() << "Database connection closed.";
 }
 
-bool Database::addSwimmer(int SSN, string name, string surname, int telNo, QDate eventDate, string eventLocation, string nameOfLifeguard, int SSNOfLifeguard)
+bool Database::addSwimmer(int SSN, QString name, QString surname, int telNo, QDate eventDate, QString eventLocation, QString nameOfLifeguard, int SSNOfLifeguard)
 {
-    bool result=FALSE;
+    bool result = false;
     QSqlQuery query;
-    if(query.exec("INSERT INTO swimmer VALUES('"+SSN+"','"+name+"','"+surname+"','"+telNo+"','"+eventDate+"','"+eventLocation+"','"+nameOfLifeguard+"','"+SSNOfLifeguard+"')"))
+    query.prepare("INSERT INTO swimmer VALUES(:ssn,:name,:surname,:telNo,:eventDate,:eventLocation,:nameOfLifeguard,:SSNOfLifeguard)");
+    query.bindValue(":SSN",SSN);
+    query.bindValue(":name",name);
+    query.bindValue(":surname",surname);
+    query.bindValue(":telNo",telNo);
+    query.bindValue(":eventDate",eventDate);
+    query.bindValue(":eventLocatio",eventLocation);
+    query.bindValue(":nameOfLifeguard",nameOfLifeguard);
+    query.bindValue(":SSNOfLifeguard",SSNOfLifeguard);
+    result = query.exec();
+    if(result)
     {
-        result = TRUE;
+        result = true;
     }
 
     return result;
 }
 
-bool Database::updateSwimmer(int SSN, string name, string surname, int telNo, string eventLocation, int SSNOfLifeguard)
+bool Database::updateSwimmer(int SSN, QString name, QString surname, int telNo, QString eventLocation, int SSNOfLifeguard)
 {
-    bool result = FALSE;
+    bool result = false;
     QSqlQuery query;
-    if(query.exec("UPDATE swimmer SET Name='"+name+"',Surname='"+surname+"',telNo='"+telNo+"',eventLocation='"+eventLocation+"',SSNOfLifeguard='"+SSNOfLifeguard+"' WHERE SSN='"+SSN+"'"))
+    query.prepare("UPDATE swimmer SET Name = :name, Surname = :surname, telNo = :telNo, eventLocation = :eventLocation, SSNOfLifeguard= :SSNOfLifeguard, SSN = :SSN");
+    query.bindValue(":SSN",SSN);
+    query.bindValue(":name",name);
+    query.bindValue(":surname",surname);
+    query.bindValue(":telNo",telNo);
+    query.bindValue(":eventLocatio",eventLocation);
+    query.bindValue(":SSNOfLifeguard",SSNOfLifeguard);
+    result = query.exec();
+    if(result)
     {
-        result = TRUE;
+        result = true;
     }
 
     return result;
@@ -64,11 +82,14 @@ bool Database::updateSwimmer(int SSN, string name, string surname, int telNo, st
 
 bool Database::swimmerQuery(int SSN)
 {
-    bool result = FALSE;
-    QSQLQuery query;
-    if(query.exec("SELECT * FROM swimmer WHERE SSN='"+SSN+"'"))
+    bool result = false;
+    QSqlQuery query;
+    query.prepare("SELECT * FROM swimmer WHERE SSN = :SSN");
+    query.bindValue(":SSN",SSN);
+    result = query.exec();
+    if(result)
     {
-        result = TRUE;
+        result = true;
     }
 
     return result;
@@ -76,11 +97,15 @@ bool Database::swimmerQuery(int SSN)
 
 bool Database::swimmerQuery(QDate date1, QDate date2)
 {
-    bool result = FALSE;
-    QSQLQuery query;
-    if(query.exec("SELECT * FROM swimmer WHERE eventDate BETWEEN '"+date1+"' and '"+date2+"'"))
+    bool result = false;
+    QSqlQuery query;
+    query.prepare("SELECT * FROM swimmer WHERE eventDate BETWEEN :date1 and :date2");
+    query.bindValue(":date1",date1);
+    query.bindValue(":date2",date2);
+    result = query.exec();
+    if(result)
     {
-        result = TRUE;
+        result = true;
     }
 
     return result;
@@ -88,11 +113,14 @@ bool Database::swimmerQuery(QDate date1, QDate date2)
 
 bool Database::lifeguardQuery(int SSN)
 {
-    bool result = FALSE;
-    QSQLQuery query;
-    if(query.exec("SELECT * FROM swimmer WHERE SSNOfLifeguard='"+SSN+"'"))
+    bool result = false;
+    QSqlQuery query;
+    query.prepare("SELECT * FROM swimmer WHERE SSNOfLifeguard=:SSN");
+    query.bindValue(":SSN",SSN);
+    result = query.exec();
+    if(result)
     {
-        result = TRUE;
+        result = true;
     }
 
     return result;
@@ -123,17 +151,17 @@ string Database::getSurname()
     return surname;
 }
 
-void Database::setName(string surname)
+void Database::setSurname(string surname)
 {
     this->surname = surname;
 }
 
-void Database::getTelNo()
+int Database::getTelNo()
 {
     return telNo;
 }
 
-int Database::setTelNo(int telNo)
+void Database::setTelNo(int telNo)
 {
     this->telNo = telNo;
 }
