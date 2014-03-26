@@ -67,3 +67,4 @@ void FLEYE::setTargetCoordination(Coordination* targetCoordination)
 {
     this->targetCoordination = targetCoordination;
 }
+

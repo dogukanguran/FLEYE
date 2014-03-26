@@ -58,3 +58,4 @@ bool Report::createReportDate(QDate dateStart,QDate dateEnd)
     }
     return returnCode;
 }
+

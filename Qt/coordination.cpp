@@ -22,7 +22,7 @@ void Coordination::setX(float x)
 
 float Coordination::getY()
 {
-    this->y = y;
+    return y;
 }
 
 void Coordination::setY(float y)

@@ -394,9 +394,31 @@
      </item>
     </layout>
    </widget>
+   <widget class="QWebView" name="webView">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>370</y>
+      <width>300</width>
+      <height>200</height>
+     </rect>
+    </property>
+    <property name="url">
+     <url>
+      <string>http://maps.googleapis.com/maps/api/staticmap?center=39.867136,32.749911&amp;zoom=15&amp;size=300x200&amp;sensor=false</string>
+     </url>
+    </property>
+   </widget>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QWebView</class>
+   <extends>QWidget</extends>
+   <header>QtWebKitWidgets/QWebView</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

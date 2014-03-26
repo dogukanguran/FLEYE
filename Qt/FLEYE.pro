@@ -7,7 +7,7 @@
 QT       += core gui
 QT       += sql
 QT       += network
-QT       += webkit
+QT       += webkit webkitwidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,6 +16,7 @@ TARGET = FLEYE
 
 CONFIG += x86_64
 CONFIG -= i386
+
 TEMPLATE = app
 
 QTPLUGIN += QSQLMYSQL
