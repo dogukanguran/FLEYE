@@ -51,7 +51,8 @@ SOURCES += main.cpp\
     qtxb/remotecommandrequest.cpp \
     qtxb/rxindicatorexplicit.cpp \
     qtxb/nodeidentificationindicator.cpp \
-    qtxb/remotecommandresponse.cpp
+    qtxb/remotecommandresponse.cpp \
+    login.cpp
 
 HEADERS  += mainwindow.h \
     database.h \
@@ -77,6 +78,8 @@ HEADERS  += mainwindow.h \
     qtxb/remotecommandrequest.h \
     qtxb/rxindicatorexplicit.h \
     qtxb/nodeidentificationindicator.h \
-    qtxb/remotecommandresponse.h
+    qtxb/remotecommandresponse.h \
+    login.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    login.ui

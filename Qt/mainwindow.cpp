@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->CoordinationToLifeGuardText->setStyleSheet("QLabel { background-color: green } ");
     ui->SwimmerDistanceText->setStyleSheet("QLabel { background-color: red } ");
 
-    QSerialPort *serial = new QSerialPort();
+    /*QSerialPort *serial = new QSerialPort();
     serial->setPortName("/dev/tty.usbserial-AM01P46A");
 
     QTXB *xb = new QTXB(serial);
@@ -36,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
         QTime dieTime= QTime::currentTime().addMSecs(1000);
         while( QTime::currentTime() < dieTime )
             QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);
-    }
+    }*/
 
     /* E-MAIL GONDERIM KODU
      *

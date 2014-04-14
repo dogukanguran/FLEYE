@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "login.h"
 #include "database.h"
 #include <QApplication>
 #include <QtSql>
@@ -10,8 +11,10 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    //MainWindow w;
+    //w.show();
+    Login l;
+    l.show();
 
     /*QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL"); // DB Driver
 
@@ -33,9 +36,9 @@ int main(int argc, char *argv[])
       qDebug() << "Error = " << db.lastError().text();
     }*/
 
-    Database *ddd = new Database();
+    /*Database *ddd = new Database();
     ddd->openDBConnection();
-    ddd->closeDBConnection();
+    ddd->closeDBConnection();*/
 
 
 
