@@ -8,6 +8,10 @@
 #include <LSM303.h>
 #include <L3G.h>
 #include <math.h>
+#include "GPS.h"
+#include <SoftwareSerial.h>
+#include <TinyGPS.h>
+
 
 bool calibrating = true;
 bool IMU_problem = false;
@@ -27,12 +31,16 @@ bool motorsOn = false;
 
 //IMU
 IMU imu;
+
 //FlightControl
 FlightControl flightControl;
 float targetAngles[3];
 float throttle;
 
-
+//GPS Location Info
+GPS gps;
+float flat, flon;
+unsigned long age;
 
 //Measuring time
 unsigned long loop_time = 0;
@@ -63,7 +71,8 @@ void setup(){
   Wire.begin();
   imu.init();
   motors.init();
-
+  gps.init();
+  
   //End of the setup phase
   Serial.print("Setup done");
   calibrating = false;
@@ -91,5 +100,6 @@ void loop(){
 
   motors.setMotorsOn(motorsOn);
   motorsReadyOld = motorsReady;
+
 }
 

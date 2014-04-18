@@ -45,8 +45,6 @@ void IMU::init()
   compAngleY = accYangle;
   compAngleX0 = accXangle;   
 
-
-
   //Gyro Calibration
   float n = 200;
 
