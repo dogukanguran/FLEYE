@@ -1,7 +1,13 @@
+#include <Arduino.h>
 #include <Servo.h>
 #include <Kalman.h>
-#include <Motors.h>
-#include <FlightControl.h>
+#include "Motors.h"
+#include "FlightControl.h"
+#include "IMU.h"
+#include <Wire.h>
+#include <LSM303.h>
+#include <L3G.h>
+#include <math.h>
 
 bool calibrating = true;
 bool IMU_problem = false;
@@ -19,8 +25,8 @@ bool motorsReady = false;
 bool motorsReadyOld = false;
 bool motorsOn = false;
 
-
-
+//IMU
+IMU imu;
 //FlightControl
 FlightControl flightControl;
 float targetAngles[3];
@@ -58,7 +64,6 @@ void setup(){
   imu.init();
   motors.init();
 
-
   //End of the setup phase
   Serial.print("Setup done");
   calibrating = false;
@@ -76,18 +81,15 @@ void loop(){
     IMU_problem = true;
     Serial.print( "    IMU PROBLEM   ");
   }
-  
+
   //Motors
   motorsReady = !IMU_problem && !calibrating;
-  if(!motorReady)
-    motorOn = false;
+  if(!motorsReady)
+    motorsOn = false;
   else
-    motorOn = true;
-  
+    motorsOn = true;
+
   motors.setMotorsOn(motorsOn);
   motorsReadyOld = motorsReady;
-
-  if(motorsReady)
-    
 }
 

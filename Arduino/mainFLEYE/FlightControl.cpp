@@ -1,6 +1,6 @@
 #include "FlightControl.h"
-
-
+#include "Utils.h"
+#include <math.h>
 
 FlightControl::FlightControl() {
 	
@@ -24,9 +24,6 @@ FlightControl::FlightControl() {
 	angle_loop_time = LOOP_TIME* ANGLE_LOOP_DIVIDER;
 	counter_angle_loop=ANGLE_LOOP_DIVIDER;
 }
-
-
-
 
 void FlightControl::control(float targetAngles[], float angles[], float rates[], float throttle, Motors &motors, bool motorsReady) {
 		

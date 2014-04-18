@@ -1,23 +1,9 @@
-/*
-  IMU.cpp - Library to use the IMU 
- Created by Romain Goussault <romain.goussault@gmail.com>
- 
- This program is free software: you can redistribute it and/or modify 
- it under the terms of the GNU General Public License as published by 
- the Free Software Foundation, either version 3 of the License, or 
- (at your option) any later version. 
- 
- This program is distributed in the hope that it will be useful, 
- but WITHOUT ANY WARRANTY; without even the implied warranty of 
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
- GNU General Public License for more details. 
- 
- You should have received a copy of the GNU General Public License 
- afloat with this program. If not, see <http://www.gnu.org/licenses/>. 
- */
-
-
 #include "IMU.h"
+#include <Wire.h>
+#include <LSM303.h>
+#include <L3G.h>
+#include <math.h>
+#include <stdint.h>
 
 IMU::IMU(){  
 
@@ -35,15 +21,15 @@ void IMU::init()
   delay(100); // Wait for sensor to stabilize
 
   //Set Starting angles
-  *accX = compass.m.x;
-  *accY = compass.m.y;
-  *accZ = compass.m.z;
-  *gyroX = gyro.g.x;
-  *gyroY = gyro.g.y;
-  *gyroZ = gyro.g.z;
+  accX = compass.m.x;
+  accY = compass.m.y;
+  accZ = compass.m.z;
+  gyroX = gyro.g.x;
+  gyroY = gyro.g.y;
+  gyroZ = gyro.g.z;
 
-  accXangle = (atan2f(accX,accZ)+PI)*RAD_TO_DEG;
-  accYangle = (atan2f(accY,accZ)+PI)*RAD_TO_DEG; //400
+  accXangle = (atan2(accX,accZ)+PI)*RAD_TO_DEG;
+  accYangle = (atan2(accY,accZ)+PI)*RAD_TO_DEG; //400
 
   //kalmanX.setAngle(accXangle); // Set starting angle
   //kalmanY.setAngle(accYangle);
@@ -70,9 +56,9 @@ void IMU::init()
 
   for (int i = 0; i < n; i++)
   {
-    *gyroX = gyro.g.x;
-    *gyroY = gyro.g.y;
-    *gyroZ = gyro.g.z;
+    gyroX = gyro.g.x;
+    gyroY = gyro.g.y;
+    gyroZ = gyro.g.z;
     sX += gyroX;
     sY += gyroY;
     sZ += gyroZ;
@@ -92,12 +78,12 @@ void IMU::init()
 
 bool IMU::processAngles(float angles[],float rates[])
 {			
-  *accX = compass.m.x;
-  *accY = compass.m.y;
-  *accZ = compass.m.z;
-  *gyroX = gyro.g.x;
-  *gyroY = gyro.g.y;
-  *gyroZ = gyro.g.z;
+  accX = compass.m.x;
+  accY = compass.m.y;
+  accZ = compass.m.z;
+  gyroX = gyro.g.x;
+  gyroY = gyro.g.y;
+  gyroZ = gyro.g.z;
 
   //Filter
   accXf = filterX.update(accX);
@@ -110,8 +96,8 @@ bool IMU::processAngles(float angles[],float rates[])
   gyroZrate = ((float) (gyroZ-gyroZoffset)/131.0);
 
   //ACC ANGLES
-  accYangle = (atan2f(accXf,accZf)+PI)*RAD_TO_DEG;
-  accXangle = (atan2f(accYf,accZf)+PI)*RAD_TO_DEG; //400
+  accYangle = (atan2(accXf,accZf)+PI)*RAD_TO_DEG;
+  accXangle = (atan2(accYf,accZf)+PI)*RAD_TO_DEG; //400
 
   // GYRO ANGLES
   gyroXangle += gyroXrate*(float)(micros()-timer)/1000000;
