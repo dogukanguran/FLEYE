@@ -4,11 +4,11 @@
 
 /* This sample code demonstrates the normal use of a TinyGPS object.
    It requires the use of SoftwareSerial, and assumes that you have a
-   4800-baud serial GPS device hooked up on pins 4(rx) and 3(tx).
+   4800-baud serial GPS device hooked up on pins 2(rx) and 3(tx).
 */
 
 TinyGPS gps;
-SoftwareSerial ss(4, 3);
+SoftwareSerial ss(3, 2);
 
 static void smartdelay(unsigned long ms);
 static void print_float(float val, float invalid, int len, int prec);
@@ -18,7 +18,7 @@ static void print_str(const char *str, int len);
 
 void setup()
 {
-  Serial.begin(115200);
+  Serial.begin(9600);
   Serial.print("Testing TinyGPS library v. "); Serial.println(TinyGPS::library_version());
   Serial.println("by Mikal Hart");
   Serial.println();
@@ -104,7 +104,6 @@ static void print_int(unsigned long val, unsigned long invalid, int len)
   if (len > 0) 
     sz[len-1] = ' ';
   Serial.print(sz);
-  ss.print("dogukan");
   smartdelay(0);
 }
 
