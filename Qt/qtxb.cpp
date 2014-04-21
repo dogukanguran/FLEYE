@@ -108,7 +108,7 @@ void QTXB::send(TXRequest *request)
 void QTXB::broadcast(QString data)
 {
     TXRequest *request = new TXRequest(this);
-    request->setData(data.toLatin1());
+    request->setData(data.toUtf8());
     send(request);
 }
 void QTXB::unicast(QByteArray address, QString data){

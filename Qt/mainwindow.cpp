@@ -28,8 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(xb, SIGNAL(receivedNodeIdentificationIndicator(NodeIdentificationIndicator*)), xb, SLOT(displayNodeIdentificationIndicator(NodeIdentificationIndicator*)));
     QObject::connect(xb, SIGNAL(receivedRemoteCommandResponse(RemoteCommandResponse*)), xb, SLOT(displayRemoteCommandResponse(RemoteCommandResponse*)));
 
-    QByteArray address = QByteArray::fromHex("0013a20040a53581");
-    QString data = "Hello World";
+    QString data = "cem";
     forever{
         xb->broadcast(data);
         //xb->readData();
