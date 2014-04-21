@@ -11,19 +11,19 @@ void setup(){
 
 void loop(){
   while(Serial.available() == 0);
-  while(Serial.available() > 0 ){
-    if(index < 19) // One less than the size of the array
-    {
-      inChar = Serial.read(); // Read a character
-      inData[index] = inChar; // Store it
-      index++; // Increment where to write next
-      inData[index] = '\0'; // Null terminate the string
-    }
-    
-    for(int i=0;i<20;i++)
-    {
-      Serial.print(inData[i] + " "); 
-    }
+  while(Serial.available() > 21 ){
+    if(Serial.read() == 0x7E){
+      for(int i=0; i < 19 ; i++) {
+         byte discardByte = Serial.read();
+      }
+      
+      if(index < 19) // One less than the size of the array
+      {
+        Serial.print(Serial.read());
+        Serial.print(", ");
+      }
+      Serial.println();
+  }
   }
 }
 
