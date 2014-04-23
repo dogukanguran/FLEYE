@@ -6,7 +6,7 @@
 #include <QtDebug>
 #include <QtSql/QSqlDatabase>
 #include <QDebug>
-
+#include "xlsxdocument.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,6 +15,12 @@ int main(int argc, char *argv[])
     //w.show();
     Login l;
     l.show();
+
+    /* Excel'de dokuman oluşturup kaydetme kodu
+     *
+     * QXlsx::Document xlsx;
+    xlsx.write("A1", "Hello Qt!");
+    xlsx.saveAs("/Users/Cem/Desktop/Test.xlsx");*/
 
     /*QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL"); // DB Driver
 

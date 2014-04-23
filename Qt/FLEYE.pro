@@ -12,6 +12,8 @@ QT       += serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+include(xlsx/qtxlsx.pri)
+
 
 TARGET = FLEYE
 
@@ -53,7 +55,6 @@ SOURCES += main.cpp\
     qtxb/nodeidentificationindicator.cpp \
     qtxb/remotecommandresponse.cpp \
     login.cpp
-
 HEADERS  += mainwindow.h \
     database.h \
     server.h \
