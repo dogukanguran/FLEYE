@@ -7,8 +7,7 @@ Login::Login(QWidget *parent) :
     ui(new Ui::Login)
 {
     ui->setupUi(this);
-    Database db;
-    db.openDBConnection();
+
 }
 
 Login::~Login()
@@ -16,10 +15,13 @@ Login::~Login()
     delete ui;
 }
 
+
 void Login::on_pushButton_clicked()
 {
     QString uname,password;
 
+    Database db;
+    db.openDBConnection();
 
     uname.append(ui->usernameEdit->text());
     password.append(ui->passwordEdit->text());
@@ -63,3 +65,4 @@ void Login::on_pushButton_clicked()
     }*/
     //db.closeDBConnection();
 }
+

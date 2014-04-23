@@ -299,7 +299,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Hi, Mr. Cem !</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="logoutButton">

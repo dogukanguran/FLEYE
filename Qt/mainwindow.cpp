@@ -5,12 +5,14 @@
 #include <QtSerialPort/QSerialPort>
 #include "database.h"
 #include "xlsxdocument.h"
+#include "login.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+
     ui->setupUi(this);
     ui->OnOff->setStyleSheet("QLabel { background-color: green } ");
     ui->FLEYEConditionText->setStyleSheet("QLabel { background-color: green } ");
@@ -18,6 +20,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->CoordinationToLifeGuardText->setStyleSheet("QLabel { background-color: green } ");
     ui->SwimmerDistanceText->setStyleSheet("QLabel { background-color: red } ");
 
+
+/*
+    QSqlQuery queryIntro;
+    queryIntro.prepare("SELECT * from login WHERE username = :username");
+    queryIntro.bindValue(":username",username);
+    while(queryIntro.exec())
+    {
+        ui->IntroText->setText("Hi, "+queryIntro.value(1).toString());
+    }*/
 
     QSqlQuery query;
     query.prepare("SELECT name,surname FROM lifeguard");
@@ -80,6 +91,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     */
 }
+
 
 MainWindow::~MainWindow()
 {
@@ -212,4 +224,9 @@ void MainWindow::on_TakeReportByDate_clicked()
     xlsx.saveAs("/Users/Cem/Desktop/ByDate_Report.xlsx");
     ui->reportByDateText->setText("Saved on your desktop.");
 
+}
+
+void MainWindow::on_logoutButton_clicked()
+{
+    this->close();
 }
