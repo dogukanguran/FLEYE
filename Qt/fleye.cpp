@@ -4,11 +4,11 @@ FLEYE::FLEYE()
 {
 }
 
-FLEYE::FLEYE(int id,QDate lastMaintenance,double batteryPercentage,bool errorExistence,Coordination* fleyeCoordination,Coordination* targetCoordination)
+FLEYE::FLEYE(int id,QDate lastMaintenance,double altitude,bool errorExistence,Coordination* fleyeCoordination,Coordination* targetCoordination)
 {
     this->id = id;
     this->lastMaintenance = lastMaintenance;
-    this->batteryPercentage = batteryPercentage;
+    this->altitude = altitude;
     this->errorExistence = errorExistence;
     this->fleyeCoordination = fleyeCoordination;
     this->targetCoordination = targetCoordination;
@@ -28,14 +28,14 @@ void FLEYE::setLastMaintenance(QDate lastMaintenance)
     this->lastMaintenance = lastMaintenance;
 }
 
-double FLEYE::getBatteryPercentage()
+double FLEYE::getAltitude()
 {
-    return batteryPercentage;
+    return altitude;
 }
 
-void FLEYE::setBatteryPercentage(double batteryPercentage)
+void FLEYE::setAltitude(double altitude)
 {
-    this->batteryPercentage = batteryPercentage;
+    this->altitude = altitude;
 }
 
 bool FLEYE::getErrorExistence()

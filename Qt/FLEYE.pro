@@ -19,6 +19,7 @@ TARGET = FLEYE
 
 CONFIG += x86_64
 CONFIG -= i386
+CONFIG += serialport
 
 TEMPLATE = app
 
@@ -39,21 +40,6 @@ SOURCES += main.cpp\
     report.cpp \
     smtp.cpp \
     email.cpp \
-    qtxb.cpp \
-    qtxb/digimeshpacket.cpp \
-    qtxb/atcommandqueueparam.cpp \
-    qtxb/atcommand.cpp \
-    qtxb/txrequest.cpp \
-    qtxb/txrequestexplicit.cpp \
-    qtxb/atcommandremote.cpp \
-    qtxb/atcommandresponse.cpp \
-    qtxb/modemstatus.cpp \
-    qtxb/transmitstatus.cpp \
-    qtxb/rxindicator.cpp \
-    qtxb/remotecommandrequest.cpp \
-    qtxb/rxindicatorexplicit.cpp \
-    qtxb/nodeidentificationindicator.cpp \
-    qtxb/remotecommandresponse.cpp \
     login.cpp
 HEADERS  += mainwindow.h \
     database.h \
@@ -65,21 +51,6 @@ HEADERS  += mainwindow.h \
     report.h \
     smtp.h \
     email.h \
-    qtxb.h \
-    qtxb/digimeshpacket.h \
-    qtxb/atcommandqueueparam.h \
-    qtxb/atcommand.h \
-    qtxb/txrequest.h \
-    qtxb/txrequestexplicit.h \
-    qtxb/atcommandremote.h \
-    qtxb/atcommandresponse.h \
-    qtxb/modemstatus.h \
-    qtxb/transmitstatus.h \
-    qtxb/rxindicator.h \
-    qtxb/remotecommandrequest.h \
-    qtxb/rxindicatorexplicit.h \
-    qtxb/nodeidentificationindicator.h \
-    qtxb/remotecommandresponse.h \
     login.h
 
 FORMS    += mainwindow.ui \

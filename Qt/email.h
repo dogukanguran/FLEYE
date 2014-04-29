@@ -7,7 +7,7 @@ class Email
 {
 private:
     QString sender;
-    QTextStream message;
+    QString message;
     QString receiver;
     QString subject;
     QTcpSocket *socket;

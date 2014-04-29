@@ -448,15 +448,15 @@
    <widget class="QWebView" name="webView">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>370</y>
-      <width>300</width>
-      <height>200</height>
+      <x>190</x>
+      <y>340</y>
+      <width>501</width>
+      <height>251</height>
      </rect>
     </property>
     <property name="url">
      <url>
-      <string>http://maps.googleapis.com/maps/api/staticmap?center=39.867136,32.749911&amp;zoom=15&amp;size=300x200&amp;sensor=false</string>
+      <string>http://maps.googleapis.com/maps/api/staticmap?center=39.867136,32.749911&amp;zoom=15&amp;size=600x300&amp;sensor=false</string>
      </url>
     </property>
    </widget>

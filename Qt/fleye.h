@@ -7,7 +7,7 @@ class FLEYE
 private:
     int id;
     QDate lastMaintenance;
-    double batteryPercentage;
+    double altitude;
     bool errorExistence;
     Coordination *fleyeCoordination;
     Coordination *targetCoordination;
@@ -18,8 +18,8 @@ public:
     int getId();
     QDate getLastMaintenance();
     void setLastMaintenance(QDate);
-    double getBatteryPercentage();
-    void setBatteryPercentage(double);
+    double getAltitude();
+    void setAltitude(double);
     bool getErrorExistence();
     void setErrorExistence(bool);
     Coordination* getFLEYECoordination();
