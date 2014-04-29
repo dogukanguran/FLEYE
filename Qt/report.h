@@ -4,8 +4,10 @@
 
 #ifndef REPORT_H
 #define REPORT_H
-#include "iostream"
+
 #include "database.h"
+#include "iostream"
+
 using namespace std;
 
 class Report

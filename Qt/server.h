@@ -1,12 +1,17 @@
 #ifndef SERVER_H
 #define SERVER_H
+
 #include "coordination.h"
+
+#include <QDebug>
+#include <QMessageBox>
 #include <QString>
+
 #include <QTcpSocket>
 #include <QTcpServer>
 #include <QTextStream>
-#include <QDebug>
-#include <QMessageBox>
+
+
 
 class Server
 {
@@ -15,8 +20,8 @@ private:
     Coordination coordinationOfSwimmer_;
     Coordination coordinationOfFLEYE_;
     Coordination coordinationOfHQ_;
-    QTcpSocket *socket_;
-    QTcpServer *server_;
+    QTcpSocket* socket_;
+    QTcpServer* server_;
 public:
     bool connectToFLEYE();
     Server();

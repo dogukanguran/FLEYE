@@ -1,12 +1,16 @@
+#include "database.h"
 #include "mainwindow.h"
 #include "login.h"
-#include "database.h"
+#include "xlsxdocument.h"
+
 #include <QApplication>
+#include <QDebug>
+
 #include <QtSql>
 #include <QtDebug>
 #include <QtSql/QSqlDatabase>
-#include <QDebug>
-#include "xlsxdocument.h"
+
+
 
 int main(int argc, char *argv[])
 {

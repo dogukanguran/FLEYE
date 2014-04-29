@@ -1,6 +1,7 @@
+#include "database.h"
 #include "login.h"
 #include "ui_login.h"
-#include "database.h"
+
 
 Login::Login(QWidget *parent) :
     QMainWindow(parent),

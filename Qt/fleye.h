@@ -4,8 +4,10 @@
 
 #ifndef FLEYE_H
 #define FLEYE_H
-#include "QDate"
+
 #include "coordination.h"
+#include "QDate"
+
 class FLEYE
 {
 private:
@@ -13,8 +15,8 @@ private:
     QDate lastMaintenance_;
     double altitude_;
     bool errorExistence_;
-    Coordination *fleyeCoordination_;
-    Coordination *targetCoordination_;
+    Coordination* fleyeCoordination_;
+    Coordination* targetCoordination_;
 
 public:
     FLEYE();

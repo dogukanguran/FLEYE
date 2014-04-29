@@ -67,12 +67,12 @@ public:
 
     ~Chart();
 
-    void addSeries(const CellRange &range, AbstractSheet *sheet=0);
+    void addSeries(const CellRange& range, AbstractSheet* sheet=0);
     void setChartType(ChartType type);
     void setChartStyle(int id);
 
-    void saveToXmlFile(QIODevice *device) const;
-    bool loadFromXmlFile(QIODevice *device);
+    void saveToXmlFile(QIODevice* device) const;
+    bool loadFromXmlFile(QIODevice* device);
 
 private:
     friend class AbstractSheet;
@@ -80,7 +80,7 @@ private:
     friend class Chartsheet;
     friend class DrawingAnchor;
 
-    Chart(AbstractSheet *parent, CreateFlag flag);
+    Chart(AbstractSheet* parent, CreateFlag flag);
 };
 
 QT_END_NAMESPACE_XLSX

@@ -4,9 +4,12 @@
 
 #ifndef EMAIL_H
 #define EMAIL_H
+
 #include "qstring.h"
-#include <QTextStream>
+
 #include "QTcpSocket"
+#include <QTextStream>
+
 class Email
 {
 private:
@@ -14,7 +17,7 @@ private:
     QString message_;
     QString receiver_;
     QString subject_;
-    QTcpSocket *socket_;
+    QTcpSocket* socket_;
 
 public:
     Email(const QString&,const QString&,const QString&,const QString&);

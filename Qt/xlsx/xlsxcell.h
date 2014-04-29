@@ -25,8 +25,9 @@
 #ifndef QXLSX_XLSXCELL_H
 #define QXLSX_XLSXCELL_H
 
-#include "xlsxglobal.h"
 #include "xlsxformat.h"
+#include "xlsxglobal.h"
+
 #include <QVariant>
 
 QT_BEGIN_NAMESPACE_XLSX
@@ -66,7 +67,7 @@ private:
     friend class Worksheet;
     friend class WorksheetPrivate;
 
-    Cell(const QVariant &data=QVariant(), DataType type=Blank, const Format &format=Format(), Worksheet *parent=0);
+    Cell(const QVariant& data=QVariant(), DataType type=Blank, const Format& format=Format(), Worksheet* parent=0);
     Cell(const Cell * const cell);
     CellPrivate * const d_ptr;
 };

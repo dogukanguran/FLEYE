@@ -4,11 +4,11 @@
 #ifndef SMTP_H
 #define SMTP_H
 
-#include <QTcpSocket>
-#include <QString>
-#include <QTextStream>
 #include <QDebug>
 #include <QMessageBox>
+#include <QString>
+#include <QTextStream>
+#include <QTcpSocket>
 
 class Smtp : public QObject
 {

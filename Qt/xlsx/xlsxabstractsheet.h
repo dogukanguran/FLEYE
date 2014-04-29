@@ -26,6 +26,7 @@
 #define XLSXABSTRACTSHEET_H
 
 #include "xlsxabstractooxmlfile.h"
+
 #include <QStringList>
 #include <QSharedPointer>
 
@@ -48,18 +49,18 @@ public:
     SheetType sheetType() const;
     QString sheetName() const;
     bool isHidden() const;
-    Workbook *workbook() const;
+    Workbook* workbook() const;
 
 protected:
     friend class Workbook;
     AbstractSheet(const QString &sheetName, int sheetId, Workbook *book, AbstractSheetPrivate *d);
-    virtual AbstractSheet *copy(const QString &distName, int distId) const = 0;
+    virtual AbstractSheet* copy(const QString &distName, int distId) const = 0;
     void setSheetName(const QString &sheetName);
     void setHidden(bool hidden);
     void setSheetType(SheetType type);
     int sheetId() const;
 
-    Drawing *drawing() const;
+    Drawing* drawing() const;
 };
 
 QT_END_NAMESPACE_XLSX

@@ -24,6 +24,7 @@
 ****************************************************************************/
 #ifndef QXLSX_XLSXCELLREFERENCE_H
 #define QXLSX_XLSXCELLREFERENCE_H
+
 #include "xlsxglobal.h"
 
 QT_BEGIN_NAMESPACE_XLSX
@@ -33,20 +34,20 @@ class Q_XLSX_EXPORT CellReference
 public:
     CellReference();
     CellReference(int row, int column);
-    CellReference(const QString &cell);
-    CellReference(const char *cell);
-    CellReference(const CellReference &other);
+    CellReference(const QString& cell);
+    CellReference(const char* cell);
+    CellReference(const CellReference& other);
     ~CellReference();
 
     QString toString(bool row_abs=false, bool col_abs=false) const;
-    static CellReference fromString(const QString &cell);
+    static CellReference fromString(const QString& cell);
     bool isValid() const;
     inline void setRow(int row) { _row = row; }
     inline void setColumn(int col) { _column = col; }
     inline int row() const { return _row; }
     inline int column() const { return _column; }
 
-    inline bool operator ==(const CellReference &other) const
+    inline bool operator ==(const CellReference& other) const
     {
         return _row==other._row && _column==other._column;
     }
@@ -55,7 +56,7 @@ public:
         return _row!=other._row || _column!=other._column;
     }
 private:
-    void init(const QString &cell);
+    void init(const QString& cell);
     int _row, _column;
 };
 

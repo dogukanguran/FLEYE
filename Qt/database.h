@@ -6,9 +6,12 @@
 #define DATABASE_H
 #include "iostream"
 #include "QDate"
+
 #include <QtSql>
 #include <QtDebug>
+
 #include <QtSql/QSqlDatabase>
+
 #include <QDebug>
 
 using namespace std;

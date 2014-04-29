@@ -4,6 +4,7 @@
 
 #ifndef SIGNAL_H
 #define SIGNAL_H
+
 #include "coordination.h"
 
 class Signal

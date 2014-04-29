@@ -25,9 +25,10 @@
 #ifndef XLSXWORKBOOK_H
 #define XLSXWORKBOOK_H
 
-#include "xlsxglobal.h"
 #include "xlsxabstractooxmlfile.h"
 #include "xlsxabstractsheet.h"
+#include "xlsxglobal.h"
+
 #include <QList>
 #include <QImage>
 #include <QSharedPointer>
@@ -56,20 +57,20 @@ public:
     ~Workbook();
 
     int sheetCount() const;
-    AbstractSheet *sheet(int index) const;
+    AbstractSheet* sheet(int index) const;
 
-    AbstractSheet *addSheet(const QString &name = QString(), AbstractSheet::SheetType type = AbstractSheet::ST_WorkSheet);
-    AbstractSheet *insertSheet(int index, const QString &name = QString(), AbstractSheet::SheetType type = AbstractSheet::ST_WorkSheet);
-    bool renameSheet(int index, const QString &name);
+    AbstractSheet* addSheet(const QString& name = QString(), AbstractSheet::SheetType type = AbstractSheet::ST_WorkSheet);
+    AbstractSheet* insertSheet(int index, const QString& name = QString(), AbstractSheet::SheetType type = AbstractSheet::ST_WorkSheet);
+    bool renameSheet(int index, const QString& name);
     bool deleteSheet(int index);
-    bool copySheet(int index, const QString &newName=QString());
+    bool copySheet(int index, const QString& newName=QString());
     bool moveSheet(int srcIndex, int distIndex);
 
-    AbstractSheet *activeSheet() const;
+    AbstractSheet* activeSheet() const;
     bool setActiveSheet(int index);
 
 //    void addChart();
-    bool defineName(const QString &name, const QString &formula, const QString &comment=QString(), const QString &scope=QString());
+    bool defineName(const QString& name, const QString& formula, const QString& comment=QString(), const QString& scope=QString());
     bool isDate1904() const;
     void setDate1904(bool date1904);
     bool isStringsToNumbersEnabled() const;
@@ -96,17 +97,17 @@ private:
 
     Workbook(Workbook::CreateFlag flag);
 
-    void saveToXmlFile(QIODevice *device) const;
-    bool loadFromXmlFile(QIODevice *device);
+    void saveToXmlFile(QIODevice* device) const;
+    bool loadFromXmlFile(QIODevice* device);
 
-    SharedStrings *sharedStrings() const;
-    Styles *styles();
-    Theme *theme();
+    SharedStrings* sharedStrings() const;
+    Styles* styles();
+    Theme* theme();
     QList<QImage> images();
     QList<Drawing *> drawings();
     QList<QSharedPointer<AbstractSheet> > getSheetsByTypes(AbstractSheet::SheetType type) const;
     QStringList worksheetNames() const;
-    AbstractSheet *addSheet(const QString &name, int sheetId, AbstractSheet::SheetType type = AbstractSheet::ST_WorkSheet);
+    AbstractSheet* addSheet(const QString &name, int sheetId, AbstractSheet::SheetType type = AbstractSheet::ST_WorkSheet);
 };
 
 QT_END_NAMESPACE_XLSX

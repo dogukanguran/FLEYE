@@ -24,8 +24,10 @@
 ****************************************************************************/
 #ifndef QXLSX_XLSXCELLRANGE_H
 #define QXLSX_XLSXCELLRANGE_H
-#include "xlsxglobal.h"
+
 #include "xlsxcellreference.h"
+#include "xlsxglobal.h"
+
 
 QT_BEGIN_NAMESPACE_XLSX
 
@@ -34,10 +36,10 @@ class Q_XLSX_EXPORT CellRange
 public:
     CellRange();
     CellRange(int firstRow, int firstColumn, int lastRow, int lastColumn);
-    CellRange(const CellReference &topLeft, const CellReference &bottomRight);
-    CellRange(const QString &range);
-    CellRange(const char *range);
-    CellRange(const CellRange &other);
+    CellRange(const CellReference& topLeft, const CellReference& bottomRight);
+    CellRange(const QString& range);
+    CellRange(const char* range);
+    CellRange(const CellRange& other);
     ~CellRange();
 
     QString toString(bool row_abs=false, bool col_abs=false) const;

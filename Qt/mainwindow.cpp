@@ -1,12 +1,11 @@
-
+#include "database.h"
+#include "login.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "qtxb.h"
-#include <QtSerialPort/QSerialPort>
-#include "database.h"
 #include "xlsxdocument.h"
-#include "login.h"
 
+#include <QtSerialPort/QSerialPort>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -60,14 +59,14 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
+//when take report by lifeguard button is clicked, execute the necessary SQL's and save the excel file to the desktop
 void MainWindow::on_TakeReportByLifeGuard_clicked()
 {
     QString lifeGuardName="";
     lifeGuardName.append(ui->comboBoxLifeGuard->currentText());
     if( lifeGuardName.compare(lifeGuardName,"Select a lifeguard",Qt::CaseInsensitive) == 0 )
     {
-
+        ui->reportByLifeGuardText->setText("Please select a lifeguard.");
     }
     else
     {
@@ -97,14 +96,14 @@ void MainWindow::on_TakeReportByLifeGuard_clicked()
         ui->reportByLifeGuardText->setText("Saved on your desktop.");
     }
 }
-
+//when take report by swimmer button is clicked, execute the necessary SQL's and save the excel file to the desktop
 void MainWindow::on_TakeReportBySwimmer_clicked()
 {
     QString swimmerName="";
     swimmerName.append(ui->comboBoxSwimmer->currentText());
     if( swimmerName.compare( swimmerName,"Select a lifeguard",Qt::CaseInsensitive) == 0 )
     {
-
+        ui->reportBySwimmerText->setText("Please select a swimmer.");
     }
     else
     {
@@ -138,7 +137,7 @@ void MainWindow::on_TakeReportBySwimmer_clicked()
         ui->reportBySwimmerText->setText("Saved on your desktop.");
     }
 }
-
+//when take report by date button is clicked, execute the necessary SQL's and save the excel file to the desktop
 void MainWindow::on_TakeReportByDate_clicked()
 {
     QXlsx::Document xlsx;
@@ -188,7 +187,7 @@ void MainWindow::on_TakeReportByDate_clicked()
     ui->reportByDateText->setText("Saved on your desktop.");
 
 }
-
+//close the user's frame
 void MainWindow::on_logoutButton_clicked()
 {
     this->close();

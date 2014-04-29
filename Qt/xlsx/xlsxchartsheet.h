@@ -26,6 +26,7 @@
 #define XLSXCHARTSHEET_H
 
 #include "xlsxabstractsheet.h"
+
 #include <QStringList>
 #include <QSharedPointer>
 
@@ -40,16 +41,16 @@ class Q_XLSX_EXPORT Chartsheet : public AbstractSheet
 public:
 
     ~Chartsheet();
-    Chart *chart();
+    Chart* chart();
 
 private:
     friend class DocumentPrivate;
     friend class Workbook;
-    Chartsheet(const QString &sheetName, int sheetId, Workbook *book, CreateFlag flag);
-    Chartsheet *copy(const QString &distName, int distId) const;
+    Chartsheet(const QString& sheetName, int sheetId, Workbook* book, CreateFlag flag);
+    Chartsheet* copy(const QString& distName, int distId) const;
 
-    void saveToXmlFile(QIODevice *device) const;
-    bool loadFromXmlFile(QIODevice *device);
+    void saveToXmlFile(QIODevice* device) const;
+    bool loadFromXmlFile(QIODevice* device);
 };
 
 QT_END_NAMESPACE_XLSX
