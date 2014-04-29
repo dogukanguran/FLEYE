@@ -14,17 +14,18 @@ void IMU::init()
 {
   // initialize device
   Wire.begin();
+
   gyro.init();
   compass.init();
   altimeter.init();
   gyro.enableDefault();
   compass.enableDefault();
-
+  altimeter.enableDefault();
   delay(100); // Wait for sensor to stabilize
-  // read values from the sensors
+
   gyro.read();
   compass.read();
-  
+
   //Set Starting angles
   accX = compass.m.x;
   accY = compass.m.y;
@@ -33,20 +34,33 @@ void IMU::init()
   gyroY = gyro.g.y;
   gyroZ = gyro.g.z;
 
-  // setting the values of altimeter
   pressure = altimeter.readPressureMillibars();
-  altitude = altimeter.pressureToAltitudeMeters(pressure); // altitude info is calculated with the air pressure.
-  temperature = altimeter.readTemperatureC(); // current wheather tempeture.
-  
-  // calculating the values to keep track FLEYE's takeoff / landing situation. 
-  landingValue = altitude / ALTIMETER_DIVIDER; // because the altimeter cannot give the exact value we need to filter and minimize the changes.
-  currentValue = landingValue; // the current value that is real altitude / ALTIMETER_DIVIDER
-  targetValue = landingValue + 1; // in the taking off condition, our target will be current + 1. this +1 means 25 meters
+  altitude = altimeter.pressureToAltitudeMeters(pressure);
+  temperature = altimeter.readTemperatureC();
 
-  // start with the minimum throttle value, this makes the motors start but not taking off.
+  landingValue = altitude / ALTIMETER_DIVIDER;
+  currentValue = landingValue;
+  targetValue = landingValue + 1;
+
   throttle = MIN_THROTTLE_VALUE;
   landing = false; // FLEYE is taking off from the ground
   flying = false; // FLEYE is not flying, FLEYE is taking off or landing.
+
+  Serial.println("ACC Values:");
+  Serial.print("AccX : ") ; 
+  Serial.print(accX);
+  Serial.print("AccY : ") ; 
+  Serial.print(accY);
+  Serial.print("AccZ : ") ; 
+  Serial.println(accZ);
+  Serial.println("GYRO Values:");
+  Serial.print("GyroX : ") ; 
+  Serial.print(gyroX);
+  Serial.print("GyroY : ") ; 
+  Serial.print(gyroY);
+  Serial.print("GyroZ : ") ; 
+  Serial.println(gyroZ);
+  Serial.println("");
 
   accXangle = (atan2(accX,accZ)+PI)*RAD_TO_DEG;
   accYangle = (atan2(accY,accZ)+PI)*RAD_TO_DEG; //400
@@ -92,33 +106,26 @@ void IMU::init()
   j=0;
 }
 
-// updates the altimeter value according to the current position and air pressure.
 void IMU::updateAltimeterValue(){
   pressure = altimeter.readPressureMillibars();
   altitude = altimeter.pressureToAltitudeMeters(pressure);
   temperature = altimeter.readTemperatureC();
-  //Serial.print("Altitude : "); 
-  //Serial.println(altitude);
-  // updates also landing value and current value.
+  Serial.print("Altitude : "); 
+  Serial.println(altitude);
   landingValue = altitude / ALTIMETER_DIVIDER;
   currentValue = landingValue;
 }
 
-// calculates the new throttle value depending on the our condition which is takingoff/landing or flying.
 float IMU::getThrottle(){
   updateAltimeterValue();
-  
   switch(isFlying()){
-  // if FLEYE is flying then we need to stabilize it at the constant value.
   case true:
     throttle = AVG_THROTTLE_VALUE;
     targetValue = currentValue - 1; 
     ; 
     break;
-  // if FLEYE is not flying then it must land or take off.  
   case false:
     switch(isLanding()){
-    // if FLEYE is landing then the throttle value need to be decreased
     case true:
       if(currentValue > targetValue){
         throttle -= THROTTLE_MULTIPLIER;
@@ -127,7 +134,6 @@ float IMU::getThrottle(){
       }
       ; 
       break;
-    // if FLEYE is taking off then the throttle value need to be increased.  
     case false:
       if(currentValue < targetValue){
         throttle += THROTTLE_MULTIPLIER;
@@ -135,7 +141,7 @@ float IMU::getThrottle(){
           throttle = MAX_THROTTLE_VALUE;
       }
       else if (currentValue == targetValue){
-        flying = true; // if FLEYE reaches the target altitude, then it's condition need to be changed to flying.
+        isFlying = true;
       }
       ; 
       break;
@@ -155,16 +161,16 @@ bool IMU::isLanding(){
 
 bool IMU::processAngles(float angles[],float rates[])
 {
-  // read values of the sensors(gyro and accelorameter)
   gyro.read();
-  compass.read();
-  // assigning values from the sensors			
+  compass.read();			
   accX = compass.m.x;
   accY = compass.m.y;
   accZ = compass.m.z;
   gyroX = gyro.g.x;
   gyroY = gyro.g.y;
-  gyroZ = gyro.g.z;
+  gyroZ = gyro.g.z; 
+
+
 
   //Filter
   accXf = filterX.update(accX);
@@ -191,6 +197,9 @@ bool IMU::processAngles(float angles[],float rates[])
   compAngleY = alpha_gyro*(compAngleY+(gyroYrate*dt))  +   c*accYangle; // Calculate the angle using a Complimentary filter 
   //compAngleX0 = 0.997*(compAngleX0+(gyroXrate*(float)(micros()-timer)/1000000))   +   (1-0.997)*accXangle; // Calculate the angle using a Complimentary filter 
 
+  //  Serial.print("compAngleX : "); Serial.println(compAngleX);
+  //  Serial.print("compAngleY : "); Serial.println(compAngleY);  
+
   timer = micros(); 
 
   //45 deg rotation for roll and pitch (depending how your IMU is fixed to your quad)
@@ -202,25 +211,39 @@ bool IMU::processAngles(float angles[],float rates[])
   rates[1]= - rac22* gyroXrate - rac22*gyroYrate;
   rates[2]=  gyroZrate;
 
+  //  Serial.println("IMU.cpp");
+  //  Serial.println("Angles : ");
+  //  Serial.print(angles[0]);
+  //  Serial.print(",");
+  //  Serial.print(angles[1]);
+  //  Serial.print(",");
+  //  Serial.println(angles[2]);
+  //  Serial.println("Rates : ");
+  //  Serial.print(rates[0]);
+  //  Serial.print(",");
+  //  Serial.print(rates[1]);
+  //  Serial.print(",");
+  //  Serial.println(rates[2]);
+  //  Serial.println("");
   //////* Print Data  for vib measurements*/
-  //switch (j)
-  //{
-
-  ////	Frequency print
-  //case 1: 
-  //dtostrf(compAngleX - 180  ,6,2,StrAnglesvib);
-  //Serial.print(StrAnglesvib); 
-  //break;
-  //case 2:
-  //Serial.print("  ");
-  //break;
-  //case 3:
-  //dtostrf(gyroXangle -180,6,2,StrAnglesvib);	
-  //Serial.println(StrAnglesvib);
-  //j=0;
-  //break;
-  //}	   
-  //j++;
+  //  switch (j)
+  //  {
+  //
+  //  //	Frequency print
+  //  case 1: 
+  //  dtostrf(compAngleX - 180  ,6,2,StrAnglesvib);
+  //  Serial.print(StrAnglesvib); 
+  //  break;
+  //  case 2:
+  //  Serial.print("  ");
+  //  break;
+  //  case 3:
+  //  dtostrf(gyroXangle -180,6,2,StrAnglesvib);	
+  //  Serial.println(StrAnglesvib);
+  //  j=0;
+  //  break;
+  //  }	   
+  //  j++;
 
   if ( abs(angles[0]) < ROLL_MAX_IMU && abs(angles[1]) < PITCH_MAX_IMU  )
   {
@@ -231,4 +254,6 @@ bool IMU::processAngles(float angles[],float rates[])
     return false;
   }
 }
+
+
 

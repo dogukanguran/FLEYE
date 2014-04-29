@@ -1,24 +1,25 @@
 #include <Arduino.h>
-#include <Servo.h>
-#include <Kalman.h>
-#include "Motors.h"
+#include <Servo.h> // controls the engines ESC(electronic speed controller)
+#include <Kalman.h> // filtering library for gyro values
+#include "Motors.h" 
 #include "FlightControl.h"
-#include "IMU.h"
-#include <Wire.h>
-#include <LSM303.h>
-#include <L3G.h>
+#include "IMU.h" // read and manipulates the gyro, acc, altimeter and compass data
+#include <Wire.h> // need to add because extra hardware is being used.
+#include <LSM303.h> // compass library
+#include <LPS331.h> // altimeter
+#include <L3G.h> // gyro
 #include <math.h>
-#include "GPS.h"
+#include "GPS.h" 
 #include <SoftwareSerial.h>
-#include <TinyGPS.h>
+#include <TinyGPS.h> // library that reads the gps data from hardware
 
 
 bool calibrating = true;
 bool IMU_problem = false;
 float max_X ;
 float max_Y ;
-float angles[3];
-float rates[3];
+float angles[3]; // angles will come from the imu.cpp
+float rates[3]; // rates will come from the imu.cpp
 float old_a;
 float mdiff;
 
@@ -66,12 +67,12 @@ const int angle_print_offset =  frequency_print_offset+7;
 const int motor_print_offset = angle_print_offset+17;
 const int control_print_offset = motor_print_offset+7;
 
-
+// setup function will be executed only 1 time.
 void setup(){
-  Wire.begin();
-  imu.init();
-  motors.init();
-  gps.init();
+  Wire.begin(); // need to begin to read data from hardware
+  imu.init(); // need to initiliaze to read data from hardware
+  motors.init(); // setting the motors info
+  gps.init(); // need to initiliaze to read gps info from gps module
   
   //End of the setup phase
   Serial.print("Setup done");
@@ -100,6 +101,16 @@ void loop(){
 
   motors.setMotorsOn(motorsOn);
   motorsReadyOld = motorsReady;
-
+  // these angles estimated values and can be changed after the area testing.
+  targetAngles[0] = -50;
+  targetAngles[1] = 50;
+  targetAngles[2] = -30;
+  
+  // getting throttle multiplier according to the condition the FLEYE at the moment.
+  throttle = imu.getThrottle();
+  // handle the stabilization issue.
+  flightControl.control(targetAngles, angles, rates, throttle, motors, motorsReady);
 }
+
+
 
