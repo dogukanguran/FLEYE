@@ -6,6 +6,7 @@ void setup(){
   Serial.write("Power on.");
 }
 
+
 void loop(){
   while (Serial.available() > 0)
     {
