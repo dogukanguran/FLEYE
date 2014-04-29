@@ -4,12 +4,16 @@
 #include "TinyGPS.h"
 #include <SoftwareSerial.h>
 
+#define METER_DIVIDER_GPS 100000 // if we divide the distance between 2 gps position  to METER_DIVIDER_GPS we are getting the meter value.
+
 class GPS{
 private:
-  float lat, lon;
+  float curLat, curLon;
+  float tarLat, tarLon;
+  float midLat, midLon;
   unsigned long age;
   TinyGPS gps;
-
+  
 public:
 
   void init(){
@@ -32,11 +36,20 @@ public:
     while (millis() - start < ms);
   }
   
+  double findLineBetweenTwoPoints(tarLat, tarLon){
+    double line = sqrt((curLat - tarLat) * (curLat - tarLat) + (curLon - tarLon) * (curLon - tarLon));
+    return line;
+  }
 
+  double findMiddleCoordinationOf2Points(tarLat, tarLon){
+    midLat = (curLat + tarLat) / 2 ;
+    mitLon = (curLon + tarLon) / 2 ;
+  }
+  
   // gets positions.
   void getPosition(){
     init();
-    gps.f_get_position(&lat, &lon, &age);
+    gps.f_get_position(&curLat, &curLon, &age);
     logout();
   }
   
