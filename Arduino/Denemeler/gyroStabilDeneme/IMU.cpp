@@ -141,7 +141,7 @@ float IMU::getThrottle(){
           throttle = MAX_THROTTLE_VALUE;
       }
       else if (currentValue == targetValue){
-        isFlying = true;
+        flying = true;
       }
       ; 
       break;

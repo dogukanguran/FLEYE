@@ -102,7 +102,8 @@ void loop(){
       //targetAngles[2] = RadioChannels[3]*0.36-180;
       targetAngles[2] = -30;
       
-      throttle = imu.getThrottle();
+      //throttle = imu.getThrottle();
+      throttle = 10;
       flightControl.control(targetAngles, angles, rates, throttle, motors, motorsReady);
       //  Serial.println("main.cpp");
       //  Serial.println("Angles : ");
