@@ -11,12 +11,12 @@
 class Server
 {
 private:
-    int gpsId;
-    Coordination coordinationOfSwimmer;
-    Coordination coordinationOfFLEYE;
-    Coordination coordinationOfHQ;
-    QTcpSocket *socket;
-    QTcpServer *server;
+    int gpsId_;
+    Coordination coordinationOfSwimmer_;
+    Coordination coordinationOfFLEYE_;
+    Coordination coordinationOfHQ_;
+    QTcpSocket *socket_;
+    QTcpServer *server_;
 public:
     bool connectToFLEYE();
     Server();

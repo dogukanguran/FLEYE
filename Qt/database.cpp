@@ -8,26 +8,26 @@ Database::Database()
 void Database::openDBConnection(){
 
 
-    db.setHostName("localhost");
-    db.setDatabaseName("FLEYE");
-    db.setPort (3306);
-    db.setUserName("root");
-    db.setPassword("root");
+    db_.setHostName("localhost");
+    db_.setDatabaseName("FLEYE");
+    db_.setPort (3306);
+    db_.setUserName("root");
+    db_.setPassword("root");
 
     // opens connection
-    if(db.open())
+    if(db_.open())
     {
 
     }
     else
     {
-      qDebug() << "Error = " << db.lastError().text();
+      qDebug() << "Error = " << db_.lastError().text();
     }
 }
 
 void Database::closeDBConnection()
 {
-    db.close();
+    db_.close();
     qDebug() << "Database connection closed.";
 }
 
@@ -126,80 +126,80 @@ bool Database::lifeguardQuery(int SSN)
 
 int Database::getSSNSwimmer()
 {
-    return SSN;
+    return SSN_;
 }
 
 void Database::setSSNSwimmer(int SSN)
 {
-    this->SSN = SSN;
+    this->SSN_ = SSN;
 }
 
 string Database::getName()
 {
-    return name;
+    return name_;
 }
 
 void Database::setName(string name)
 {
-    this->name = name;
+    this->name_ = name;
 }
 
 string Database::getSurname()
 {
-    return surname;
+    return surname_;
 }
 
 void Database::setSurname(string surname)
 {
-    this->surname = surname;
+    this->surname_ = surname;
 }
 
 int Database::getTelNo()
 {
-    return telNo;
+    return telNo_;
 }
 
 void Database::setTelNo(int telNo)
 {
-    this->telNo = telNo;
+    this->telNo_ = telNo;
 }
 
 QDate Database::getEventDate()
 {
-    return eventDate;
+    return eventDate_;
 }
 
 void Database::setEventDate(QDate eventDate)
 {
-    this->eventDate = eventDate;
+    this->eventDate_ = eventDate;
 }
 
 string Database::getEventLocation()
 {
-    return eventLocation;
+    return eventLocation_;
 }
 
 void Database::setEventLocation(string eventLocation)
 {
-    this->eventLocation = eventLocation;
+    this->eventLocation_ = eventLocation;
 }
 
 int Database::getSSNOfLifeguard()
 {
-    return SSNOfLifeguard;
+    return SSNOfLifeguard_;
 }
 
 void Database::setSSNOfLifeguard(int SSNOfLifeguard)
 {
-    this->SSNOfLifeguard = SSNOfLifeguard;
+    this->SSNOfLifeguard_ = SSNOfLifeguard;
 }
 
 string Database::getNameOfLifeguard()
 {
-    return nameOfLifeguard;
+    return nameOfLifeguard_;
 }
 
 void Database::setNameOfLifeguard(string nameOfLifeguard)
 {
-    this->nameOfLifeguard = nameOfLifeguard;
+    this->nameOfLifeguard_ = nameOfLifeguard;
 }

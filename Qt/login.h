@@ -25,7 +25,7 @@ private slots:
 
 private:
     Ui::Login *ui;
-    MainWindow *main;
+    MainWindow *main_;
 
 
 };

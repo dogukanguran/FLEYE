@@ -9,8 +9,8 @@
 class Coordination
 {
 private:
-    float x;
-    float y;
+    float x_;
+    float y_;
 public:
     Coordination();
     Coordination(float,float);

@@ -10,11 +10,11 @@
 class Email
 {
 private:
-    QString sender;
-    QString message;
-    QString receiver;
-    QString subject;
-    QTcpSocket *socket;
+    QString sender_;
+    QString message_;
+    QString receiver_;
+    QString subject_;
+    QTcpSocket *socket_;
 
 public:
     Email(const QString&,const QString&,const QString&,const QString&);

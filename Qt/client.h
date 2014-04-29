@@ -4,7 +4,7 @@
 class Client : public QObject
 {
 private:
-    QTcpSocket *socket;
+    QTcpSocket *socket_;
 public:
     Client(QObject *parent);
     void connectToServer();

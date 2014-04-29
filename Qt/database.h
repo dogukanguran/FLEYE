@@ -16,15 +16,15 @@ using namespace std;
 class Database
 {
 private:
-    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL"); // DB Driver
-    int SSN;
-    string name;
-    string surname;
-    int telNo;
-    QDate eventDate;
-    string eventLocation;
-    int SSNOfLifeguard;
-    string nameOfLifeguard;
+    QSqlDatabase db_ = QSqlDatabase::addDatabase("QMYSQL"); // DB Driver
+    int SSN_;
+    string name_;
+    string surname_;
+    int telNo_;
+    QDate eventDate_;
+    string eventLocation_;
+    int SSNOfLifeguard_;
+    string nameOfLifeguard_;
 public:
     Database();
     void openDBConnection();

@@ -9,12 +9,12 @@
 class FLEYE
 {
 private:
-    int id;
-    QDate lastMaintenance;
-    double altitude;
-    bool errorExistence;
-    Coordination *fleyeCoordination;
-    Coordination *targetCoordination;
+    int id_;
+    QDate lastMaintenance_;
+    double altitude_;
+    bool errorExistence_;
+    Coordination *fleyeCoordination_;
+    Coordination *targetCoordination_;
 
 public:
     FLEYE();

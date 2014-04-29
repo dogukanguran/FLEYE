@@ -51,8 +51,8 @@ void Login::on_pushButton_clicked()
 
     if(query.next())
     {
-        main = new MainWindow (this);
-        main->show();
+        main_ = new MainWindow (this);
+        main_->show();
     }
     else
     {

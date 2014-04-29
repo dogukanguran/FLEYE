@@ -11,9 +11,9 @@ using namespace std;
 class Report
 {
 private:
-    int reportId;
-    string reportType;
-    Database reportDatabase;
+    int reportId_;
+    string reportType_;
+    Database reportDatabase_;
 public:
     Report();
     bool createReportSwimmer(int);

@@ -6,65 +6,65 @@ FLEYE::FLEYE()
 
 FLEYE::FLEYE(int id,QDate lastMaintenance,double altitude,bool errorExistence,Coordination* fleyeCoordination,Coordination* targetCoordination)
 {
-    this->id = id;
-    this->lastMaintenance = lastMaintenance;
-    this->altitude = altitude;
-    this->errorExistence = errorExistence;
-    this->fleyeCoordination = fleyeCoordination;
-    this->targetCoordination = targetCoordination;
+    this->id_ = id;
+    this->lastMaintenance_ = lastMaintenance;
+    this->altitude_ = altitude;
+    this->errorExistence_ = errorExistence;
+    this->fleyeCoordination_ = fleyeCoordination;
+    this->targetCoordination_ = targetCoordination;
 }
 
 int FLEYE::getId(){
-    return id;
+    return id_;
 }
 
 QDate FLEYE::getLastMaintenance()
 {
-    return lastMaintenance;
+    return lastMaintenance_;
 }
 
 void FLEYE::setLastMaintenance(QDate lastMaintenance)
 {
-    this->lastMaintenance = lastMaintenance;
+    this->lastMaintenance_ = lastMaintenance;
 }
 
 double FLEYE::getAltitude()
 {
-    return altitude;
+    return altitude_;
 }
 
 void FLEYE::setAltitude(double altitude)
 {
-    this->altitude = altitude;
+    this->altitude_ = altitude;
 }
 
 bool FLEYE::getErrorExistence()
 {
-    return errorExistence;
+    return errorExistence_;
 }
 
 void FLEYE::setErrorExistence(bool errorExistence)
 {
-    this->errorExistence = errorExistence;
+    this->errorExistence_ = errorExistence;
 }
 
 Coordination* FLEYE::getFLEYECoordination()
 {
-    return fleyeCoordination;
+    return fleyeCoordination_;
 }
 
 void FLEYE::setFLEYECoordination(Coordination* fleyeCoordination)
 {
-    this->fleyeCoordination = fleyeCoordination;
+    this->fleyeCoordination_ = fleyeCoordination;
 }
 
 Coordination* FLEYE::getTargetCoordination()
 {
-    return targetCoordination;
+    return targetCoordination_;
 }
 
 void FLEYE::setTargetCoordination(Coordination* targetCoordination)
 {
-    this->targetCoordination = targetCoordination;
+    this->targetCoordination_ = targetCoordination;
 }
 
