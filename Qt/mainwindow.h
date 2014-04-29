@@ -1,3 +1,7 @@
+/*
+ * This is our main GUI. Everything about the PC side will be handled here.
+ */
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 

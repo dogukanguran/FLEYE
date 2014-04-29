@@ -1,3 +1,7 @@
+/*
+ * With this class we will reach the important datas coming from FLEYE and we will use them on the GUI.
+ */
+
 #ifndef FLEYE_H
 #define FLEYE_H
 #include "QDate"

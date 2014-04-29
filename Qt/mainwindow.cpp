@@ -30,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->IntroText->setText("Hi, "+queryIntro.value(1).toString());
     }*/
 
+    //this piece of code fills combobox of lifeguard
     QSqlQuery query;
     query.prepare("SELECT name,surname FROM lifeguard");
     query.exec();
@@ -41,6 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->comboBoxLifeGuard->addItem(name);
     }
 
+    //this piece of code fills swimmer's combobox
     QSqlQuery query2;
     query2.prepare("SELECT name,surname FROM swimmer");
     query2.exec();

@@ -1,3 +1,7 @@
+/*
+ * This class will include all basic open and close connection methods and also basic query methods in it.
+ */
+
 #ifndef DATABASE_H
 #define DATABASE_H
 #include "iostream"

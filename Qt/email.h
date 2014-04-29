@@ -1,3 +1,7 @@
+/*
+ * This class will help us to send an e-mail to the hospital.
+ */
+
 #ifndef EMAIL_H
 #define EMAIL_H
 #include "qstring.h"

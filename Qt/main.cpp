@@ -11,7 +11,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
+    // Start with login screen.
     Login l;
     l.show();
 

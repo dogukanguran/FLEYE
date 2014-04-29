@@ -4,6 +4,7 @@ Report::Report()
 {
 }
 
+//creates report by swimmer's SSN
 bool Report::createReportSwimmer(int num)
 {
     bool returnCode = false;
@@ -21,6 +22,7 @@ bool Report::createReportSwimmer(int num)
     return returnCode;
 }
 
+//creates reports by lifeguard's ID
 bool Report::createReportLifeguard(int num)
 {
     bool returnCode = false;
@@ -38,6 +40,7 @@ bool Report::createReportLifeguard(int num)
     return returnCode;
 }
 
+//creates report by two dates entered by user and shows events that happened between two date
 bool Report::createReportDate(QDate dateStart,QDate dateEnd)
 {
     bool returnCode = false;

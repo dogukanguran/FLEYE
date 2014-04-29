@@ -19,7 +19,7 @@ Login::~Login()
 void Login::on_pushButton_clicked()
 {
     QString uname,password;
-
+    // first of all, we need to open DB connection
     Database db;
     db.openDBConnection();
 
@@ -28,7 +28,7 @@ void Login::on_pushButton_clicked()
 
     ui->errorText->setText("");
     ui->loginErrorText->setText("");
-
+    //if username or password or both of them are empty, give warning.
     if(uname.trimmed().size() == 0 && password.trimmed().size() == 0)
     {
         ui->errorText->setText("Username and Password fields are required to be filled.");
@@ -42,7 +42,7 @@ void Login::on_pushButton_clicked()
         ui->errorText->setText("Password field is required to be filled.");
     }
 
-
+    // if everything is filled, then control the credentials with DB records.
     QSqlQuery query;
     query.prepare("SELECT * FROM login WHERE username = :uname AND password = :pass");
     query.bindValue(":uname",uname);

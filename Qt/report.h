@@ -1,3 +1,7 @@
+/*
+ * This class will help us to create Excel files from database.
+ */
+
 #ifndef REPORT_H
 #define REPORT_H
 #include "iostream"

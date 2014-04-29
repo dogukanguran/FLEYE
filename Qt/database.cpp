@@ -17,14 +17,7 @@ void Database::openDBConnection(){
     // opens connection
     if(db.open())
     {
-        /*qDebug() << "Database connection established!";
-        QSqlQuery query;
-        query.exec("SELECT * FROM swimmer WHERE SSN = 1");
-        while(query.next()) {
-            QString firstName = query.value(1).toString();
-            QString secondName = query.value(2).toString();
-            qDebug() << firstName << secondName;
-        }*/
+
     }
     else
     {
@@ -40,6 +33,7 @@ void Database::closeDBConnection()
 
 bool Database::addSwimmer(int SSN, QString name, QString surname, int telNo, QDate eventDate, QString eventLocation, QString nameOfLifeguard, int SSNOfLifeguard)
 {
+    // this function adds new swimmer to the database.
     bool result = false;
     QSqlQuery query;
     query.prepare("INSERT INTO swimmer VALUES(:ssn,:name,:surname,:telNo,:eventDate,:eventLocation,:nameOfLifeguard,:SSNOfLifeguard)");
@@ -62,6 +56,7 @@ bool Database::addSwimmer(int SSN, QString name, QString surname, int telNo, QDa
 
 bool Database::updateSwimmer(int SSN, QString name, QString surname, int telNo, QString eventLocation, int SSNOfLifeguard)
 {
+    //this function updates existing swimmer.
     bool result = false;
     QSqlQuery query;
     query.prepare("UPDATE swimmer SET Name = :name, Surname = :surname, telNo = :telNo, eventLocation = :eventLocation, SSNOfLifeguard= :SSNOfLifeguard, SSN = :SSN");
@@ -82,6 +77,7 @@ bool Database::updateSwimmer(int SSN, QString name, QString surname, int telNo, 
 
 bool Database::swimmerQuery(int SSN)
 {
+    //this function queries swimmer by its SSN
     bool result = false;
     QSqlQuery query;
     query.prepare("SELECT * FROM swimmer WHERE SSN = :SSN");
@@ -97,6 +93,7 @@ bool Database::swimmerQuery(int SSN)
 
 bool Database::swimmerQuery(QDate date1, QDate date2)
 {
+    //This function queries swimmer by rescuing date
     bool result = false;
     QSqlQuery query;
     query.prepare("SELECT * FROM swimmer WHERE eventDate BETWEEN :date1 and :date2");
@@ -113,6 +110,7 @@ bool Database::swimmerQuery(QDate date1, QDate date2)
 
 bool Database::lifeguardQuery(int SSN)
 {
+    //This function queries by lifeguard's SSN
     bool result = false;
     QSqlQuery query;
     query.prepare("SELECT * FROM swimmer WHERE SSNOfLifeguard=:SSN");

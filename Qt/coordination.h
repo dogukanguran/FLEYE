@@ -1,3 +1,8 @@
+/*
+ * This class will help us to get and set coordinates so that we can reach elements from any class.
+ *
+ */
+
 #ifndef COORDINATION_H
 #define COORDINATION_H
 

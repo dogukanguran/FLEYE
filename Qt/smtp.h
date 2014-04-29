@@ -1,13 +1,6 @@
-/****************************************************************************
-** $Id: qt/smtp.h   3.3.6   edited Aug 31 2005 $
-**
-** Copyright (C) 1992-2005 Trolltech AS.  All rights reserved.
-**
-** This file is part of an example program for Qt.  This example
-** program may be used, distributed and modified without limitation.
-**
-*****************************************************************************/
-
+/*
+ * This class is for SMTP operations. We will use this class to send an e-mail to the FLEYE.
+ */
 #ifndef SMTP_H
 #define SMTP_H
 

@@ -1,3 +1,7 @@
+/*
+ * With the help of the class we will check authentication of the users.
+ */
+
 #ifndef LOGIN_H
 #define LOGIN_H
 
