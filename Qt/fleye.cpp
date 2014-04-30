@@ -4,6 +4,8 @@ FLEYE::FLEYE()
 {
 }
 
+//constructor for FLEYE class
+
 FLEYE::FLEYE(int id,QDate lastMaintenance,double altitude,bool errorExistence,Coordination* fleyeCoordination,Coordination* targetCoordination)
 {
     this->id_ = id;
@@ -13,6 +15,8 @@ FLEYE::FLEYE(int id,QDate lastMaintenance,double altitude,bool errorExistence,Co
     this->fleyeCoordination_ = fleyeCoordination;
     this->targetCoordination_ = targetCoordination;
 }
+
+//getter and setter functions for FLEYE class
 
 int FLEYE::getId(){
     return id_;

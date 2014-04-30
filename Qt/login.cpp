@@ -11,12 +11,13 @@ Login::Login(QWidget *parent) :
 
 }
 
+//desctructor for login class
 Login::~Login()
 {
     delete ui;
 }
 
-
+//when user clicks connect button
 void Login::on_pushButton_clicked()
 {
     QString uname,password;

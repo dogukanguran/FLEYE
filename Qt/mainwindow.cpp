@@ -70,28 +70,35 @@ void MainWindow::on_TakeReportByLifeGuard_clicked()
     }
     else
     {
+        //when we call write function we supply the name of cell to write on and what will be written in that cell.
         QXlsx::Document xlsx;
+        //first we will define the names of columns
         xlsx.write("A1", "SSN");
         xlsx.write("B1", "Lifeguard No");
         xlsx.write("C1", "Address");
 
+        //we take the names from combobox that user selected a name and we split by name and surname
         QStringList list = lifeGuardName.split(QRegExp("\\s"));
         QString name="",surname="";
         name.append(list[0]);
         surname.append(list[1]);
 
+        //we query that name and surname
         QSqlQuery query;
         query.prepare("SELECT * FROM lifeguard WHERE name = :name AND surname = :surname");
         query.bindValue(":name",name);
         query.bindValue(":surname",surname);
         query.exec();
 
+        //if we have return row then we write it to the cell
         while(query.next()) {
             xlsx.write("A2",query.value(0).toInt());
             xlsx.write("B2",query.value(2).toInt());
             xlsx.write("C2",query.value(4).toString());
         }
 
+
+        //we save that xlsx file on to desktop
         xlsx.saveAs("/Users/Cem/Desktop/Lifeguard_Report.xlsx");
         ui->reportByLifeGuardText->setText("Saved on your desktop.");
     }
@@ -147,6 +154,7 @@ void MainWindow::on_TakeReportByDate_clicked()
     xlsx.write("D1", "Event Location");
     xlsx.write("E1", "FLEYE ID");
 
+    //in that case we get the start and end date from user
     QString dateStartString,dateEndString;
     dateStartString = ui->ByDateStart->date().toString(Qt::ISODate);
     dateEndString = ui->ByDateEnd->date().toString(Qt::ISODate);
@@ -158,6 +166,7 @@ void MainWindow::on_TakeReportByDate_clicked()
     query.bindValue(":dateEnd",dateEndString);
     query.exec();
 
+    //we use for loop because we may have more than one row in result set
     while(query.next()) {
         for(int i = 0 ; i < query.size() ; i++)
         {

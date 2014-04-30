@@ -4,7 +4,7 @@ Report::Report()
 {
 }
 
-//creates report by swimmer's SSN
+//creates report by swimmer's SSN and returns TRUE or FALSE
 bool Report::createReportSwimmer(int num)
 {
     bool returnCode = false;

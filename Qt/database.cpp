@@ -5,8 +5,8 @@ Database::Database()
 
 }
 
+// opens database connection with given credentials
 void Database::openDBConnection(){
-
 
     db_.setHostName("localhost");
     db_.setDatabaseName("FLEYE");
@@ -25,12 +25,14 @@ void Database::openDBConnection(){
     }
 }
 
+//closes database connection
 void Database::closeDBConnection()
 {
     db_.close();
     qDebug() << "Database connection closed.";
 }
 
+// add swimmer on to database and returns TRUE or FALSE to inform user
 bool Database::addSwimmer(int SSN, QString name, QString surname, int telNo, QDate eventDate, QString eventLocation, QString nameOfLifeguard, int SSNOfLifeguard)
 {
     // this function adds new swimmer to the database.
@@ -54,6 +56,7 @@ bool Database::addSwimmer(int SSN, QString name, QString surname, int telNo, QDa
     return result;
 }
 
+//function for updating swimmer
 bool Database::updateSwimmer(int SSN, QString name, QString surname, int telNo, QString eventLocation, int SSNOfLifeguard)
 {
     //this function updates existing swimmer.
@@ -75,6 +78,8 @@ bool Database::updateSwimmer(int SSN, QString name, QString surname, int telNo, 
     return result;
 }
 
+// queries swimmer by his/her SSN
+
 bool Database::swimmerQuery(int SSN)
 {
     //this function queries swimmer by its SSN
@@ -90,6 +95,8 @@ bool Database::swimmerQuery(int SSN)
 
     return result;
 }
+
+//queries swimmer by his/her rescue date
 
 bool Database::swimmerQuery(QDate date1, QDate date2)
 {
@@ -108,6 +115,8 @@ bool Database::swimmerQuery(QDate date1, QDate date2)
     return result;
 }
 
+//queries lifeguards by his/her SSN
+
 bool Database::lifeguardQuery(int SSN)
 {
     //This function queries by lifeguard's SSN
@@ -123,6 +132,9 @@ bool Database::lifeguardQuery(int SSN)
 
     return result;
 }
+
+
+// getter and setter functions for members.
 
 int Database::getSSNSwimmer()
 {

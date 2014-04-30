@@ -4,6 +4,7 @@
 #include <QDateTime>
 #include <QEventLoop>
 
+//function to send an e-mail. Function will call itself automatically.
 Email::Email(const QString& sender,const QString& receiver,const QString& subject,const QString& message)
 {
     //this function gets needed inputs and prepares mail to be sent.
