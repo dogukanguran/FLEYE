@@ -1,3 +1,11 @@
+/*
+  This is the main file of the arduino operates on the quad copter. 
+  In that project I used the C and C++ together.
+  
+  PS: according to the (C++)standard that we follow during coding, all #define operations will be changed with the "get" methods, but some of them does not, because they are just extra info
+ and making them a part of a class does not make sense. 
+*/
+
 #include <Arduino.h>
 #include <Servo.h> // controls the engines ESC(electronic speed controller)
 #include <Kalman.h> // filtering library for gyro values
@@ -13,7 +21,6 @@
 #include <SoftwareSerial.h>
 #include <TinyGPS.h> // library that reads the gps data from hardware
 
-
 bool calibrating = true;
 bool IMU_problem = false;
 float max_X ;
@@ -22,7 +29,6 @@ float angles[3]; // angles will come from the imu.cpp
 float rates[3]; // rates will come from the imu.cpp
 float old_a;
 float mdiff;
-
 
 //Motors
 Motors motors;
@@ -49,7 +55,6 @@ unsigned long start_loop = 0;
 int freq;
 double deltaF;
 
-
 //Printing
 char StrMotor[4];
 char StrMotorOn[4] = "ON";
@@ -73,7 +78,7 @@ void setup(){
   imu.init(); // need to initiliaze to read data from hardware
   motors.init(); // setting the motors info
   gps.init(); // need to initiliaze to read gps info from gps module
-  
+
   //End of the setup phase
   Serial.print("Setup done");
   calibrating = false;
@@ -86,8 +91,7 @@ void loop(){
   freq = 1000000/loop_time;
 
   //IMU
-  if (! (imu.processAngles(angles, rates))  ) //continue only the data from the IMU is acceptable
-  {
+  if (!(imu.processAngles(angles, rates))){ //continue only the data from the IMU is acceptable
     IMU_problem = true;
     Serial.print( "    IMU PROBLEM   ");
   }
@@ -105,12 +109,15 @@ void loop(){
   targetAngles[0] = -50;
   targetAngles[1] = 50;
   targetAngles[2] = -30;
-  
-  // getting throttle multiplier according to the condition the FLEYE at the moment.
+
+  // getting throttle multiplier according to the condition of the FLEYE at the moment.
   throttle = imu.getThrottle();
   // handle the stabilization issue.
   flightControl.control(targetAngles, angles, rates, throttle, motors, motorsReady);
+  
+  /* GPS tracking code will be added. Currently gps tracking code is not completed. */
 }
+
 
 
 

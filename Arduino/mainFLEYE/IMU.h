@@ -11,27 +11,33 @@
 #include "Filter.h"
 #include <math.h>
 
-#define  ROLL_MAX_IMU  30
-#define  PITCH_MAX_IMU 30
 
-#define  ROLL_OFFSET -0.16
-#define  PITCH_OFFSET 2.10
-#define  YAW_OFFSET 0
+//#define  ROLL_MAX_IMU  30
+//#define  PITCH_MAX_IMU 30
+//#define  ROLL_OFFSET -0.16
+//#define  PITCH_OFFSET 2.10
+//#define  YAW_OFFSET 0
+//#define  MIN_THROTTLE_VALUE 0
+//#define  AVG_THROTTLE_VALUE 200 // estimated value
+//#define  MAX_THROTTLE_VALUE 750
+//#define  THROTTLE_MULTIPLIER 30
+//#define  ALTIMETER_DIVIDER 25
 
-#define  MIN_THROTTLE_VALUE 0
-#define  AVG_THROTTLE_VALUE 200 // estimated value
-#define  MAX_THROTTLE_VALUE 750
-#define  THROTTLE_MULTIPLIER 30
-#define ALTIMETER_DIVIDER 25
-
-class IMU
-{
-
+class IMU{
 public:
-
   IMU();
   void init();  
   bool processAngles(float angles[],float rates[] );
+  int getRollMaxImu();
+  int getPitchMaxImu();
+  float getRollOffset();
+  float getPitchOffset();
+  float getYawOffset();
+  int getMinThrottleValue();
+  int getAvgThrottleValue();
+  int getMaxThrottleValue();
+  int getThrottleMultiplier();
+  int getAltimeterDivider();
   void updateAltimeterValue();
   float getThrottle();
   bool isLanding(); // indicates the FLEYE is taking off or landing.
@@ -76,7 +82,6 @@ private:
   Filter filterX;
   Filter filterY;	
   Filter filterZ;
-
 
   float alpha_gyro;
   float c;

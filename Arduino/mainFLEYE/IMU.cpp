@@ -6,8 +6,7 @@
 #include <stdint.h>
 #include <LPS331.h>
 
-IMU::IMU(){  
-
+IMU::IMU(){
 }
 
 void IMU::init()
@@ -24,7 +23,7 @@ void IMU::init()
   // read values from the sensors
   gyro.read();
   compass.read();
-  
+
   //Set Starting angles
   accX = compass.m.x;
   accY = compass.m.y;
@@ -37,14 +36,14 @@ void IMU::init()
   pressure = altimeter.readPressureMillibars();
   altitude = altimeter.pressureToAltitudeMeters(pressure); // altitude info is calculated with the air pressure.
   temperature = altimeter.readTemperatureC(); // current wheather tempeture.
-  
+
   // calculating the values to keep track FLEYE's takeoff / landing situation. 
-  landingValue = altitude / ALTIMETER_DIVIDER; // because the altimeter cannot give the exact value we need to filter and minimize the changes.
-  currentValue = landingValue; // the current value that is real altitude / ALTIMETER_DIVIDER
+  landingValue = altitude / getAltimeterDivider(); // because the altimeter cannot give the exact value we need to filter and minimize the changes.
+  currentValue = landingValue; // the current value that is real altitude / getAltimeterDivider()
   targetValue = landingValue + 1; // in the taking off condition, our target will be current + 1. this +1 means 25 meters
 
   // start with the minimum throttle value, this makes the motors start but not taking off.
-  throttle = MIN_THROTTLE_VALUE;
+  throttle = getMinThrottleValue();
   landing = false; // FLEYE is taking off from the ground
   flying = false; // FLEYE is not flying, FLEYE is taking off or landing.
 
@@ -87,9 +86,43 @@ void IMU::init()
   gyroYoffset = sY/n;
   gyroZoffset = sZ/n;
 
-
-
   j=0;
+}
+
+int IMU::getRollMaxImu(){
+  return 30;
+}
+
+int IMU::getPitchMaxImu(){
+  return 30;
+}
+
+float IMU::getRollOffset(){
+  return -0.16;
+}
+
+float IMU::getPitchOffset(){
+  return 2.10;
+}
+
+float IMU::getYawOffset(){
+  return 0;
+}
+
+int IMU::getMinThrottleValue(){
+  return 0;
+}
+int IMU::getAvgThrottleValue(){
+  return 200;  
+}
+int IMU::getMaxThrottleValue(){
+  return 750;
+}
+int IMU::getThrottleMultiplier(){
+  return 30;
+}
+int IMU::getAltimeterDivider(){
+  return 25;
 }
 
 // updates the altimeter value according to the current position and air pressure.
@@ -100,39 +133,39 @@ void IMU::updateAltimeterValue(){
   //Serial.print("Altitude : "); 
   //Serial.println(altitude);
   // updates also landing value and current value.
-  landingValue = altitude / ALTIMETER_DIVIDER;
+  landingValue = altitude / getAltimeterDivider();
   currentValue = landingValue;
 }
 
 // calculates the new throttle value depending on the our condition which is takingoff/landing or flying.
 float IMU::getThrottle(){
   updateAltimeterValue();
-  
+
   switch(isFlying()){
-  // if FLEYE is flying then we need to stabilize it at the constant value.
+    // if FLEYE is flying then we need to stabilize it at the constant value.
   case true:
-    throttle = AVG_THROTTLE_VALUE;
+    throttle = getAvgThrottleValue();
     targetValue = currentValue - 1; 
     ; 
     break;
-  // if FLEYE is not flying then it must land or take off.  
+    // if FLEYE is not flying then it must land or take off.  
   case false:
     switch(isLanding()){
-    // if FLEYE is landing then the throttle value need to be decreased
+      // if FLEYE is landing then the throttle value need to be decreased
     case true:
       if(currentValue > targetValue){
-        throttle -= THROTTLE_MULTIPLIER;
-        if(throttle < MIN_THROTTLE_VALUE)
-          throttle = MIN_THROTTLE_VALUE;
+        throttle -= getThrottleMultiplier();
+        if(throttle < getMinThrottleValue())
+          throttle = getMinThrottleValue();
       }
       ; 
       break;
-    // if FLEYE is taking off then the throttle value need to be increased.  
+      // if FLEYE is taking off then the throttle value need to be increased.  
     case false:
       if(currentValue < targetValue){
-        throttle += THROTTLE_MULTIPLIER;
-        if(throttle > MAX_THROTTLE_VALUE)
-          throttle = MAX_THROTTLE_VALUE;
+        throttle += getThrottleMultiplier();
+        if(throttle > getMaxThrottleValue())
+          throttle = getMaxThrottleValue();
       }
       else if (currentValue == targetValue){
         flying = true; // if FLEYE reaches the target altitude, then it's condition need to be changed to flying.
@@ -194,41 +227,20 @@ bool IMU::processAngles(float angles[],float rates[])
   timer = micros(); 
 
   //45 deg rotation for roll and pitch (depending how your IMU is fixed to your quad)
-  angles[0]=  -rac22* compAngleX + rac22*compAngleY + ROLL_OFFSET;
-  angles[1]=  -rac22* compAngleX - rac22*compAngleY +2*rac22*PI*RAD_TO_DEG + PITCH_OFFSET;
-  angles[2]=  gyroZangle;
+  angles[0] = - getRac22() * compAngleX + getRac22() * compAngleY + getRollOffset();
+  angles[1] = - getRac22() * compAngleX - getRac22() * compAngleY + 2 * getRac22() * PI * RAD_TO_DEG + getPitchOffset();
+  angles[2] = gyroZangle;
 
-  rates[0]=   -  rac22* gyroXrate + rac22*gyroYrate;
-  rates[1]= - rac22* gyroXrate - rac22*gyroYrate;
-  rates[2]=  gyroZrate;
+  rates[0] = - getRac22() * gyroXrate + getRac22() * gyroYrate;
+  rates[1] = - getRac22() * gyroXrate - getRac22() * gyroYrate;
+  rates[2] = gyroZrate;
 
-  //////* Print Data  for vib measurements*/
-  //switch (j)
-  //{
-
-  ////	Frequency print
-  //case 1: 
-  //dtostrf(compAngleX - 180  ,6,2,StrAnglesvib);
-  //Serial.print(StrAnglesvib); 
-  //break;
-  //case 2:
-  //Serial.print("  ");
-  //break;
-  //case 3:
-  //dtostrf(gyroXangle -180,6,2,StrAnglesvib);	
-  //Serial.println(StrAnglesvib);
-  //j=0;
-  //break;
-  //}	   
-  //j++;
-
-  if ( abs(angles[0]) < ROLL_MAX_IMU && abs(angles[1]) < PITCH_MAX_IMU  )
-  {
+  if (abs(angles[0]) < getRollMaxImu() && abs(angles[1]) < getPitchMaxImu()){
     return true;
   }
-  else
-  {
+  else{
     return false;
   }
 }
+
 

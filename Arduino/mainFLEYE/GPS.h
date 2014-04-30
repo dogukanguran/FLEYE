@@ -4,7 +4,7 @@
 #include "TinyGPS.h"
 #include <SoftwareSerial.h>
 
-#define METER_DIVIDER_GPS 100000 // if we divide the distance between 2 gps position  to METER_DIVIDER_GPS we are getting the meter value.
+//#define METER_DIVIDER_GPS 100000 // if we divide the distance between 2 gps position  to METER_DIVIDER_GPS we are getting the meter value.
 
 class GPS{
 private:
@@ -13,18 +13,8 @@ private:
   float midLat, midLon;
   unsigned long age;
   TinyGPS gps;
-  
-public:
 
-  void init(){
-    Serial.begin(4800);
-    smartdelay(0);
-  }
-  
-  void logout(){
-    Serial.end();
-  }
-  
+public:
   // makes the active delay without any intruption
   void smartdelay(unsigned long ms){
     unsigned long start = millis();
@@ -36,35 +26,51 @@ public:
     while (millis() - start < ms);
   }
   
-  double findLineBetweenTwoPoints(tarLat, tarLon){
+  void init(){
+    Serial.begin(4800);
+    smartdelay(0);
+  }
+
+  int getGPSDivider(){
+    return 100000;
+  }
+
+  void logout(){
+    Serial.end();
+  }
+
+  // by the help of this line, we can track FLEYE's coordination.
+  double findLineBetweenCurAndTar(){
     double line = sqrt((curLat - tarLat) * (curLat - tarLat) + (curLon - tarLon) * (curLon - tarLon));
     return line;
   }
-
-  double findMiddleCoordinationOf2Points(tarLat, tarLon){
+  // Dividing the line in pieces make the FLEYE go the target almost on the line.
+  double findMiddleCoordinationOf2Points(float tarLat, float tarLon){
     midLat = (curLat + tarLat) / 2 ;
-    mitLon = (curLon + tarLon) / 2 ;
+    midLon = (curLon + tarLon) / 2 ;
   }
-  
+
+  void setTargetPosition(float lat,float lon){
+    tarLat = lat; 
+    tarLon = lon;
+  }
+
   // gets positions.
   void getPosition(){
     init();
     gps.f_get_position(&curLat, &curLon, &age);
     logout();
   }
-  
 
   float getLatitude(){
     getPosition();
-    return lat;
+    return curLat;
   }
-  
 
   float getLongitude(){
     getPosition();
-    return lon;
+    return curLon;
   }
-  
 
   unsigned long getAge(){
     getPosition();
@@ -73,6 +79,7 @@ public:
 };
 
 #endif
+
 
 
 

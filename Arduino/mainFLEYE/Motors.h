@@ -17,28 +17,23 @@
 #define MIN_MOTOR_SPEED_CONTROL 0
 #define MAX_MOTOR_SPEED_CONTROL 100
 
-
 //1 and 3 clockwise (R on my props)
 //4 and 2 counter clockwise
 
-
-class Motors
-{
-  public:
-
-    Motors();
-    void init();
-    void allStop();
-    void setMotorSpeed(byte, float);
-    int getMotorSpeed(byte);
-    void setAllSpeed(float);
-    void setMotorsOn(bool);
- 
-     
-  private:
-    int motors[MOTOR_COUNT];
-    float motor_speeds[MOTOR_COUNT];
-    bool motorsOn;
- };
+class Motors{
+public:
+  Motors();
+  void init();
+  void allStop();
+  void setMotorSpeed(byte, float);
+  int getMotorSpeed(byte);
+  void setAllSpeed(float);
+  void setMotorsOn(bool);
+private:
+  int motors[MOTOR_COUNT];
+  float motor_speeds[MOTOR_COUNT];
+  bool motorsOn;
+};
 
 #endif
+

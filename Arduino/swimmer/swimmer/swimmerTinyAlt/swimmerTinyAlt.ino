@@ -36,7 +36,7 @@ void loop(){
   }
   //need to re-create in each iteration
   bool newData = false;
-  if(buttonPus"hed == true){
+  if(buttonPushed == true){
     while(ss.available()){
       char c = ss.read();
       if(gps.encode(c))
