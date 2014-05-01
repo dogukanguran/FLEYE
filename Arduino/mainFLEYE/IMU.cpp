@@ -169,6 +169,8 @@ float IMU::getThrottle(){
       }
       else if (currentValue == targetValue){
         flying = true; // if FLEYE reaches the target altitude, then it's condition need to be changed to flying.
+        
+        /* GPS tracking will be added */
       }
       ; 
       break;
