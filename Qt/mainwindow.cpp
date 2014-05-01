@@ -19,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->CoordinationToLifeGuardText->setStyleSheet("QLabel { background-color: green } ");
     ui->SwimmerDistanceText->setStyleSheet("QLabel { background-color: red } ");
 
+    QProcess* myProcess = new QProcess(this);
+    myProcess->execute("java -jar /Users/Cem/Desktop/FLEYE/Qt/xbee.jar" );
 
 /*
     QSqlQuery queryIntro;
