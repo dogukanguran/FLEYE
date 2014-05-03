@@ -4,8 +4,9 @@
 #include "ui_mainwindow.h"
 #include "qtxb.h"
 #include "xlsxdocument.h"
+#include "login.h"
 
-#include <QtSerialPort/QSerialPort>
+Login *login;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -18,9 +19,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->HospitalMailText->setStyleSheet("QLabel { background-color: green } ");
     ui->CoordinationToLifeGuardText->setStyleSheet("QLabel { background-color: green } ");
     ui->SwimmerDistanceText->setStyleSheet("QLabel { background-color: red } ");
-
-    QProcess* myProcess = new QProcess(this);
-    myProcess->execute("java -jar /Users/Cem/Desktop/FLEYE/Qt/xbee.jar" );
 
 /*
     QSqlQuery queryIntro;
@@ -54,8 +52,29 @@ MainWindow::MainWindow(QWidget *parent) :
         name.append(" "+surname);
         ui->comboBoxSwimmer->addItem(name);
     }
+
 }
 
+
+
+/*float MainWindow::processNewData(QByteArray &data)
+{
+    bool ok;
+    int sign = 1;
+    QByteArray array(_array.toHex());
+    array = QByteArray::number(array.toLongLong(&ok,16),2); //convert hex to binary -you don't need this since your incoming data is binary
+    if(array.length()==32)
+    {
+        if(array.at(0)=='1') sign =-1; // if bit 0 is 1 number is negative
+        array.remove(0,1); // remove sign bit
+    }
+    QByteArray fraction =array.right(23); //get the fractional part
+    double mantissa = 0;
+    for(int i=0;i<fraction.length();i++) // iterate through the array to claculate the fraction as a decimal.
+        if(fraction.at(i)=='1') mantissa += 1.0/(pow(2,i+1));
+    int exponent = array.left(array.length()-23).toLongLong(&ok,2)-127; //claculate the exponent
+    return (sign*pow(2,exponent)*(mantissa+1.0));
+}*/
 
 MainWindow::~MainWindow()
 {
@@ -202,4 +221,9 @@ void MainWindow::on_TakeReportByDate_clicked()
 void MainWindow::on_logoutButton_clicked()
 {
     this->close();
+    login = new Login(this);
+    login->setPasswordEditBlank();
+    login->setUsernameEditBlank();
+    login->show();
+    login->QWidget::setWindowTitle("Login");
 }

@@ -19,6 +19,8 @@ class Login : public QMainWindow
 public:
     explicit Login(QWidget *parent = 0);
     ~Login();
+    void setUsernameEditBlank();
+    void setPasswordEditBlank();
 
 private slots:
     void on_pushButton_clicked();

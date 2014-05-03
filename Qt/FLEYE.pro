@@ -9,8 +9,9 @@ QT       += sql
 QT       += network
 QT       += webkit webkitwidgets
 QT       += serialport
+QT       += widgets
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4):
 
 include(xlsx/qtxlsx.pri)
 
@@ -19,7 +20,11 @@ TARGET = FLEYE
 
 CONFIG += x86_64
 CONFIG -= i386
-CONFIG += serialport
+
+
+
+INCLUDEPATH += /Users/Cem/Applications/Qt/5.2.0/clang_64/include
+
 
 TEMPLATE = app
 
@@ -28,12 +33,12 @@ QTPLUGIN += QSQLMYSQL
 
 LIBS += /Applications/MySQLWorkbench.app/Contents/Frameworks/libmysqlclient.18.dylib
 LIBS += -L/usr/local/lib
+LIBS += -L/Users/Cem/Applications/Qt/5.2.0/clang_64/lib
 
 SOURCES += main.cpp\
         mainwindow.cpp \
     database.cpp \
     server.cpp \
-    client.cpp \
     signal.cpp \
     coordination.cpp \
     fleye.cpp \
@@ -44,7 +49,6 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     database.h \
     server.h \
-    client.h \
     signal.h \
     coordination.h \
     fleye.h \

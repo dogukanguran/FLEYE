@@ -8,6 +8,7 @@ Login::Login(QWidget *parent) :
     ui(new Ui::Login)
 {
     ui->setupUi(this);
+    this->QWidget::setWindowTitle("Login");
 
 }
 
@@ -54,7 +55,9 @@ void Login::on_pushButton_clicked()
     if(query.next())
     {
         main_ = new MainWindow (this);
+        main_->QWidget::setWindowTitle("FLEYE Control");
         main_->show();
+        this->hide();
     }
     else
     {
@@ -66,5 +69,15 @@ void Login::on_pushButton_clicked()
 
     }*/
     //db.closeDBConnection();
+}
+
+void Login::setPasswordEditBlank()
+{
+    ui->passwordEdit->setText("");
+}
+
+void Login::setUsernameEditBlank()
+{
+    ui->usernameEdit->setText("");
 }
 
