@@ -10,26 +10,34 @@
 #include <QTcpSocket>
 #include <QTcpServer>
 #include <QTextStream>
+#include <QHostAddress>
+#include <QObject>
+#include <QtNetwork>
+#include <QtCore>
 
 
 
-class Server
+class Server : public QObject
 {
+Q_OBJECT
+public slots:
+    //bool sendLocationToLifeguard(float,float);
+    void sendLocationToLifeguard();
+
+public:
+    Server(QObject* parent = 0);
+    ~Server();
+    void start(QString address, quint16 port);
+    void disconnect();
+
+
+
 private:
     int gpsId_;
     Coordination coordinationOfSwimmer_;
     Coordination coordinationOfFLEYE_;
     Coordination coordinationOfHQ_;
-    QTcpSocket* socket_;
-    QTcpServer* server_;
-public:
-    bool connectToFLEYE();
-    Server();
-    bool sendLocationToLifeguard();
-    void listen();
-    void on_newConnection();
-    void on_readyRead();
-    void on_disconnected();
+    QTcpSocket server_;
 
 };
 
