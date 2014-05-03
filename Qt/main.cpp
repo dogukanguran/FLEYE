@@ -12,7 +12,7 @@
 #include <QtDebug>
 #include <QtSql/QSqlDatabase>
 
-
+Coordination c;
 
 int main(int argc, char *argv[])
 {
@@ -21,12 +21,11 @@ int main(int argc, char *argv[])
     //Login l;
     //l.show();
 
-    Coordination co;
-    co.setX(23.44444);
-    co.setY(12.12323);
+    c.setX(23.44444);
+    c.setY(12.12323);
     Server server;
 
-    server.start("192.168.2.9", 8888);
+    server.start("127.0.0.1", 8888);
 
 
 

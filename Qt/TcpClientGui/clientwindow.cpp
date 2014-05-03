@@ -82,7 +82,7 @@ void ClientWindow::startRead()
 
 
     server.close();
-
     client->close();
 
 }
+
