@@ -5,7 +5,7 @@
 #include <sstream>
 #include "coordination.h"
 
-Coordination co;
+extern Coordination coordination;
 
 Server::Server(QObject* parent): QObject(parent)
 {
@@ -45,11 +45,11 @@ void Server::sendLocationToLifeguard()
     //f1 = co.getX();
     //f2 = co.getY();
 
-    qDebug() << co.getX();
-    qDebug() << co.getY();
+    qDebug() << coordination.getX();
+    qDebug() << coordination.getY();
 
-    sprintf(f1Val,"%f",f1);
-    sprintf(f2Val,"%f",f2);
+    sprintf(f1Val,"%f",coordination.getX());
+    sprintf(f2Val,"%f",coordination.getY());
 
     char* newArray = new char[std::strlen(f1Val)+std::strlen(f2Val)+1];
     std::strcpy(newArray,f1Val);

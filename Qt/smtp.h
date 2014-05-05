@@ -1,14 +1,21 @@
-/*
- * This class is for SMTP operations. We will use this class to send an e-mail to the FLEYE.
- */
+/****************************************************************************
+** $Id: qt/smtp.h   3.3.6   edited Aug 31 2005 $
+**
+** Copyright (C) 1992-2005 Trolltech AS.  All rights reserved.
+**
+** This file is part of an example program for Qt.  This example
+** program may be used, distributed and modified without limitation.
+**
+*****************************************************************************/
+
 #ifndef SMTP_H
 #define SMTP_H
 
-#include <QDebug>
-#include <QMessageBox>
+#include <QTcpSocket>
 #include <QString>
 #include <QTextStream>
-#include <QTcpSocket>
+#include <QDebug>
+#include <QMessageBox>
 
 class Smtp : public QObject
 {
@@ -34,19 +41,19 @@ private slots:
         void readyRead();
 
 private:
-        QString message_;
-        QTextStream *t_;
-        QTcpSocket *socket_;
-        QString from_;
-        QString rcpt_;
-        QString response_;
-        QStringList recips_;
-        QString server_;
-        QString user_;
-        QString pass_;
-        int x_;
+        QString message;
+        QTextStream *t;
+        QTcpSocket *socket;
+        QString from;
+        QString rcpt;
+        QString response;
+        QStringList recips;
+        QString server;
+        QString user;
+        QString pass;
+        int x;
         enum states{Auth,User,Pass,Rcpt,Mail,Data,Init,Body,Quit,Close};
-        int state_;
+        int state;
 };
 
 #endif

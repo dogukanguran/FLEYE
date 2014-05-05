@@ -11,7 +11,7 @@ Email::Email(const QString& sender,const QString& receiver,const QString& subjec
     QEventLoop loop;
     QStringList list;
     list.append(receiver);
-    Smtp *newMail  = new Smtp("asmtp.bilkent.edu.tr","c_ertug@ug.bilkent.edu.tr","****",sender,list,subject,message);
+    Smtp *newMail  = new Smtp("asmtp.bilkent.edu.tr","c_ertug@ug.bilkent.edu.tr","03cem1991",sender,list,subject,message);
     QObject::connect(newMail, SIGNAL(finished()), &loop, SLOT(quit()));
     loop.exec();
 
