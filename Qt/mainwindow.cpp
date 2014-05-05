@@ -2,23 +2,33 @@
 #include "login.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "qtxb.h"
 #include "xlsxdocument.h"
 #include "login.h"
+#include "server.h"
+#include "signal.h"
+#include "coordination.h"
 
 Login *login;
+extern Coordination coordination;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-
     ui->setupUi(this);
     ui->OnOff->setStyleSheet("QLabel { background-color: green } ");
     ui->FLEYEConditionText->setStyleSheet("QLabel { background-color: green } ");
     ui->HospitalMailText->setStyleSheet("QLabel { background-color: green } ");
     ui->CoordinationToLifeGuardText->setStyleSheet("QLabel { background-color: green } ");
     ui->SwimmerDistanceText->setStyleSheet("QLabel { background-color: red } ");
+
+    Signal s;
+    QString str;
+    str = "39.9206;32.8500";
+    forever {
+        s.checkSignal(str);
+    }
+
 
 /*
     QSqlQuery queryIntro;
@@ -80,7 +90,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-//when take report by lifeguard button is clicked, execute the necessary SQL's and save the excel file to the desktop
+//when take report by lifeguard button is clicked, execute the necessary SQLs and save the excel file to the desktop
 void MainWindow::on_TakeReportByLifeGuard_clicked()
 {
     QString lifeGuardName="";
@@ -221,6 +231,8 @@ void MainWindow::on_TakeReportByDate_clicked()
 void MainWindow::on_logoutButton_clicked()
 {
     this->close();
+    Database database;
+    database.closeDBConnection();
     login = new Login(this);
     login->setPasswordEditBlank();
     login->setUsernameEditBlank();

@@ -22,6 +22,7 @@ public:
     ~MainWindow();
     Ui::MainWindow *ui;
 
+
 private slots:
     void on_TakeReportByLifeGuard_clicked();
 

@@ -4,15 +4,22 @@
 
 #ifndef SIGNAL_H
 #define SIGNAL_H
+#define NORTH N
+#define EAST E
+#define WEST W
+#define SOUTH S
 
 #include "coordination.h"
+#include <QtCore>
+
 
 class Signal
 {
 public:
-    virtual ~Signal();
-    virtual bool checkSignal(Coordination);
-    virtual void getSignal();
+    Signal();
+    ~Signal();
+    bool checkSignal(QString);
+    void getSignal();
 };
 
 #endif // SIGNAL_H

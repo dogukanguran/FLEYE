@@ -1,6 +1,7 @@
 #include "database.h"
 #include "login.h"
 #include "ui_login.h"
+#include "coordination.h"
 
 
 Login::Login(QWidget *parent) :
@@ -9,6 +10,10 @@ Login::Login(QWidget *parent) :
 {
     ui->setupUi(this);
     this->QWidget::setWindowTitle("Login");
+
+    // first of all, we need to open DB connection
+    Database db;
+    db.openDBConnection();
 
 }
 
@@ -22,9 +27,6 @@ Login::~Login()
 void Login::on_pushButton_clicked()
 {
     QString uname,password;
-    // first of all, we need to open DB connection
-    Database db;
-    db.openDBConnection();
 
     uname.append(ui->usernameEdit->text());
     password.append(ui->passwordEdit->text());
@@ -46,13 +48,13 @@ void Login::on_pushButton_clicked()
     }
 
     // if everything is filled, then control the credentials with DB records.
-    QSqlQuery query;
-    query.prepare("SELECT * FROM login WHERE username = :uname AND password = :pass");
-    query.bindValue(":uname",uname);
-    query.bindValue(":pass",password);
-    query.exec();
+    QSqlQuery query2;
+    query2.prepare("SELECT * FROM login WHERE username = :uname AND password = :pass");
+    query2.bindValue(":uname",uname);
+    query2.bindValue(":pass",password);
+    query2.exec();
 
-    if(query.next())
+    if(query2.next())
     {
         main_ = new MainWindow (this);
         main_->QWidget::setWindowTitle("FLEYE Control");

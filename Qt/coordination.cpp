@@ -29,3 +29,13 @@ void Coordination::setY(float y)
 {
     this->y_ = y;
 }
+
+QString Coordination::getCity()
+{
+    return hqCity_;
+}
+
+void Coordination::setCity(QString hqCity)
+{
+    hqCity_ = hqCity;
+}

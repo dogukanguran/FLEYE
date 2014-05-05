@@ -42,7 +42,6 @@ SOURCES += main.cpp\
     signal.cpp \
     coordination.cpp \
     fleye.cpp \
-    report.cpp \
     smtp.cpp \
     email.cpp \
     login.cpp
@@ -52,7 +51,6 @@ HEADERS  += mainwindow.h \
     signal.h \
     coordination.h \
     fleye.h \
-    report.h \
     smtp.h \
     email.h \
     login.h
