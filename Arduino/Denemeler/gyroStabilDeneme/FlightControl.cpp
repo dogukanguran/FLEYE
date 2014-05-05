@@ -202,10 +202,10 @@ void FlightControl::control(float targetAngles[], float angles[], float rates[],
         Serial.print("4. Motor : ");
         Serial.println((1*w4*2) + MIN_MOTOR_SPEED_PWM);
         
-//        motors.setMotorSpeed(1, 1*w1);
-//	motors.setMotorSpeed(2, 1*w2);
-//	motors.setMotorSpeed(3, 1*w3);
-//	motors.setMotorSpeed(4, 1*w4);
+        motors.setMotorSpeed(1, 1*w1);
+	motors.setMotorSpeed(2, 1*w2);
+	motors.setMotorSpeed(3, 1*w3);
+	motors.setMotorSpeed(4, 1*w4);
 
 	counter_angle_loop++;
         Serial.print("Counter Angle Loop : "); Serial.println(counter_angle_loop);
