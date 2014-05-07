@@ -56,7 +56,7 @@ bool Signal::checkSignal(QString gpsData)
             coordination.setY(y);
 
             Server server;
-            server.start("192.168.43.167", 1234);
+            server.start("127.0.0.1", 1234);
             server.disconnect();
         }
     }

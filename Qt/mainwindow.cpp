@@ -7,6 +7,7 @@
 #include "server.h"
 #include "signal.h"
 #include "coordination.h"
+#include "database.h"
 
 Login *login;
 extern Coordination coordination;
@@ -231,8 +232,6 @@ void MainWindow::on_TakeReportByDate_clicked()
 void MainWindow::on_logoutButton_clicked()
 {
     this->close();
-    Database database;
-    database.closeDBConnection();
     login = new Login(this);
     login->setPasswordEditBlank();
     login->setUsernameEditBlank();
