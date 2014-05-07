@@ -18,7 +18,7 @@
 class FlightControl{
 public:
   FlightControl();
-  void control(float targetAngles[], float angles[], float rates[], float throttle, Motors &motors, bool motorsReady);
+  void control(float targetAngles[], float angles[], float rates[], float throttle, Motors &motors, bool motorsReady, Imu &imu);
   int getAngleLoopDivider();
   int getLoopTime();
   //void getLoopTime(long l);

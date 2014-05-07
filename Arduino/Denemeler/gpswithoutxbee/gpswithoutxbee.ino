@@ -37,7 +37,6 @@ void loop()
       isButtonPressed = true;
     } 
   }
-  Serial.println("cem");
   while(uart_gps.available())     // While there is data on the RX pin...
   {
     int c = uart_gps.read();    // load the data into a variable...

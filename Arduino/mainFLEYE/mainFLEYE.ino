@@ -113,7 +113,7 @@ void loop(){
   // getting throttle multiplier according to the condition of the FLEYE at the moment.
   throttle = imu.getThrottle();
   // handle the stabilization issue.
-  flightControl.control(targetAngles, angles, rates, throttle, motors, motorsReady);
+  flightControl.control(targetAngles, angles, rates, throttle, motors, motorsReady, imu);
   
   /* GPS tracking code will be added. Currently gps tracking code is not completed. */
 }

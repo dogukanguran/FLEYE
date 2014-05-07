@@ -4,7 +4,7 @@ int m3 = 11;
 
 void motorZeroLevel(){
   analogWrite(m0,125);
- analogWrite(m1,125);
+  analogWrite(m1,125);
   analogWrite(m2,125);
   analogWrite(m3,125);
 }
@@ -12,7 +12,7 @@ void motorZeroLevel(){
 void motorInc(){
   analogWrite(m0,254);
   analogWrite(m1,254);
-analogWrite(m2,254);
+  analogWrite(m2,254);
   analogWrite(m3,254);
 }
 
@@ -30,17 +30,23 @@ void setup(){
   pinMode(m2,OUTPUT);
   pinMode(m3,OUTPUT);
 }
-
+boolean flag = false;
+int counter = 0;
 void loop(){
   if(Serial.available()){
-    int value = Serial.parseInt();
-    if(value == 2)
-      motorInc();
-    if(value == 1)
-      motorZeroLevel();
-    if(value == 0)
-      motorStop();
+    flag = true;
   }
+  
+  if(flag == true && counter == 0){
+    motorZeroLevel();
+    delay(1000);
+    motorInc();
+    flag = false;
+    counter++;
+  }
+  delay(5000);
+  if(flag == false && counter > 0)
+    motorStop();
 }
 
 

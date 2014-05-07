@@ -31,7 +31,7 @@ int FlightControl::getLoopTime(){
 int FlightControl::getAngleLoopDivider(){
   return 7;
 }
-void FlightControl::control(float targetAngles[], float angles[], float rates[], float throttle, Motors &motors, bool motorsReady) {
+void FlightControl::control(float targetAngles[], float angles[], float rates[], float throttle, Motors &motors, bool motorsReady, Imu &imu) {
 
   //	//Setting gain of the PID
   //	if (Serial.available() > 0) 
@@ -127,6 +127,10 @@ void FlightControl::control(float targetAngles[], float angles[], float rates[],
 
   U1 = throttle*0.10;
   U4=CONTROL_ON*0; //No Yaw control for the moment
+
+  
+  
+
 
   //Roll is control by M2 and M4 via U2
   //Ptich is control by M1 and M3 via U3
