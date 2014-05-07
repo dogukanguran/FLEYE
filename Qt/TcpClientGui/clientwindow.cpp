@@ -18,7 +18,7 @@ ClientWindow::ClientWindow(QWidget *parent) :
     connect(&server, SIGNAL(newConnection()),
             this, SLOT(acceptConnection()));
 
-    server.listen(QHostAddress::Any, 8888);
+    server.listen(QHostAddress::Any, 1234);
     ui->swimmerLocationTextEdit->setText("Server Starts !...\n");
 }
 

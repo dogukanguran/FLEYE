@@ -49,14 +49,14 @@ bool Signal::checkSignal(QString gpsData)
             QByteArray ba = str.toLocal8Bit();
             const char *c_str2 = ba.data();
             sprintf (buffer, "We need an ambulance over %s !! Coordinates: \nX: %f Y: %f",c_str2  ,hqX,hqY);
-            Email *sendEmail = new Email("c_ertug@ug.bilkent.edu.tr","turkishsoldier51@gmail.com",
-                                         "EMERGENCY!!",buffer);
+           // Email *sendEmail = new Email("c_ertug@ug.bilkent.edu.tr","turkishsoldier51@gmail.com",
+            //                             "EMERGENCY!!",buffer);
 
             coordination.setX(x);
             coordination.setY(y);
 
             Server server;
-            server.start("127.0.0.1", 8888);
+            server.start("127.0.0.1", 1234);
             server.disconnect();
         }
     }

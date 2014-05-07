@@ -6,15 +6,7 @@ bool isButtonPushed = false;
 
 void motorZeroLevel(){
   analogWrite(m0,125);
-<<<<<<< HEAD
   analogWrite(m1,125);
-=======
-<<<<<<< HEAD
-  analogWrite(m1,125);
-=======
- analogWrite(m1,125);
->>>>>>> FETCH_HEAD
->>>>>>> 2385ee7fe0208caa3202b3b1b0fff1afae34e6e1
   analogWrite(m2,125);
   analogWrite(m3,125);
 }
@@ -22,15 +14,7 @@ void motorZeroLevel(){
 void motorInc(){
   analogWrite(m0,254);
   analogWrite(m1,254);
-<<<<<<< HEAD
   analogWrite(m2,254);
-=======
-<<<<<<< HEAD
-  analogWrite(m2,254);
-=======
-analogWrite(m2,254);
->>>>>>> FETCH_HEAD
->>>>>>> 2385ee7fe0208caa3202b3b1b0fff1afae34e6e1
   analogWrite(m3,254);
 }
 
@@ -43,30 +27,12 @@ void motorStop(){
 
 void setup(){
   Serial.begin(9600);
-<<<<<<< HEAD
   
-=======
->>>>>>> FETCH_HEAD
   pinMode(m0,OUTPUT); 
   pinMode(m1,OUTPUT);
   pinMode(m2,OUTPUT);
   pinMode(m3,OUTPUT);
 }
-<<<<<<< HEAD
-boolean flag = false;
-int counter = 0;
-void loop(){
-  if(Serial.available()){
-    flag = true;
-  }
-  
-  if(flag == true && counter == 0){
-    motorZeroLevel();
-    delay(1000);
-    motorInc();
-    flag = false;
-    counter++;
-=======
 
 boolean flag = false;
 
@@ -82,11 +48,7 @@ void loop(){
     if(flag == true)
       motorStop();
     
->>>>>>> 2385ee7fe0208caa3202b3b1b0fff1afae34e6e1
   }
-  delay(5000);
-  if(flag == false && counter > 0)
-    motorStop();
 }
 
 
