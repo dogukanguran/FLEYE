@@ -59,12 +59,18 @@ const int angle_print_offset =  frequency_print_offset+7;
 const int motor_print_offset = angle_print_offset+17;
 const int control_print_offset = motor_print_offset+7;
 
+boolean deneme = true;
+boolean yeter = true;
+boolean indir;
+int now;
 
 void setup(){
   Serial.begin(9600);
   Wire.begin();
   imu.init();
   motors.init();
+  throttle = 10;
+  indir = false;
 
   //End of the setup phase
   Serial.println("Setup done");
@@ -73,58 +79,69 @@ void setup(){
 
 
 void loop(){
-//  while(!Serial.available());
-//  
-//  while(Serial.available() > 0) {
-//    
-//    int value = Serial.parseInt();
-//    if(value == 1){
+  //  while(!Serial.available());
+  //  
+  //  while(Serial.available() > 0) {
+  //    
+  //    int value = Serial.parseInt();
+  //    if(value == 1){
 
-      // Measure loop rate
-      start_loop = micros();
-      freq = 1000000/loop_time;
+  // Measure loop rate
+  start_loop = micros();
+  freq = 1000000/loop_time;
 
-      //IMU
-      if (! (imu.processAngles(angles, rates))  ) //continue only the data from the IMU is acceptable
-      {
-        IMU_problem = true;
-        Serial.println( "    IMU PROBLEM   ");
-      }
+  //IMU
+  //  if (! (imu.processAngles(angles, rates))  ) //continue only the data from the IMU is acceptable
+  //  {
+  //    IMU_problem = true;
+  //    Serial.println( "    IMU PROBLEM   ");
+  //  }
 
-      motorsReady = !IMU_problem && !calibrating; 
-      motorsOn = true;
-      //motors.setMotorsOn(motorsOn);
+  motorsReady = !IMU_problem && !calibrating; 
+  motorsOn = true;
+  motors.setMotorsOn(motorsOn);
 
-      //targetAngles[0] = RadioChannels[4]*0.03-15;
-      targetAngles[0] = -50;
-      //targetAngles[1] = RadioChannels[2]*0.03-15;
-      targetAngles[1] = 50;
-      //targetAngles[2] = RadioChannels[3]*0.36-180;
-      targetAngles[2] = -30;
-      
-      //throttle = imu.getThrottle();
-      throttle = 10;
-      flightControl.control(targetAngles, angles, rates, throttle, motors, motorsReady);
-      //  Serial.println("main.cpp");
-      //  Serial.println("Angles : ");
-      //  Serial.print(angles[0]);
-      //  Serial.print(",");
-      //  Serial.print(angles[1]);
-      //  Serial.print(",");
-      //  Serial.println(angles[2]);
-      //  Serial.println("Rates : ");
-      //  Serial.print(rates[0]);
-      //  Serial.print(",");
-      //  Serial.print(rates[1]);
-      //  Serial.print(",");
-      //  Serial.println(rates[2]);
-      delay(1000);
-//    }
-//    else if(value == 2){
-//      motors.allStop();
-//    }
-//  }
+  //targetAngles[0] = RadioChannels[4]*0.03-15;
+  targetAngles[0] = -50;
+  //targetAngles[1] = RadioChannels[2]*0.03-15;
+  targetAngles[1] = 50;
+  //targetAngles[2] = RadioChannels[3]*0.36-180;
+  targetAngles[2] = -30;
+
+  //throttle = imu.getThrottle();
+
+  //  if((millis() - now) % 5000 == 0){
+  //    if(deneme == true){
+  //      throttle = throttle + 10;
+  //      Serial.print("t1 : "); 
+  //      Serial.println(throttle);
+  //    }
+  //    if(throttle == 50){
+  //      deneme = false;
+  //      indir = true;
+  //    }  
+  //    if(indir == true)
+  //      throttle -= 10;
+  //    if(throttle < 0)
+  //      throttle = 0;  
+  //  }
+
+  throttle = 10;
+    imu.processAngles(angles, rates);
+    flightControl.control(targetAngles, angles, rates, throttle, motors, motorsReady);
+  delay(1000);
+  //}
+  //    else if(value == 2){
+  //      motors.allStop();
+  //    }
+  //  }
 }
+
+
+
+
+
+
 
 
 

@@ -8,11 +8,18 @@ void setup(){
 }
 
 void loop(){
+<<<<<<< HEAD
     //float no = Serial.parseFloat();
     //Serial.print(no);
     
     Serial.print(Serial.read());
     delay(1000); 
   }
+=======
+  Serial.println("DogukanGuran");
+  delay(1000);
+
+}
+>>>>>>> FETCH_HEAD
 
 

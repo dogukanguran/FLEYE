@@ -6,7 +6,11 @@ bool isButtonPushed = false;
 
 void motorZeroLevel(){
   analogWrite(m0,125);
+<<<<<<< HEAD
   analogWrite(m1,125);
+=======
+ analogWrite(m1,125);
+>>>>>>> FETCH_HEAD
   analogWrite(m2,125);
   analogWrite(m3,125);
 }
@@ -14,7 +18,11 @@ void motorZeroLevel(){
 void motorInc(){
   analogWrite(m0,254);
   analogWrite(m1,254);
+<<<<<<< HEAD
   analogWrite(m2,254);
+=======
+analogWrite(m2,254);
+>>>>>>> FETCH_HEAD
   analogWrite(m3,254);
 }
 
@@ -27,7 +35,10 @@ void motorStop(){
 
 void setup(){
   Serial.begin(9600);
+<<<<<<< HEAD
   
+=======
+>>>>>>> FETCH_HEAD
   pinMode(m0,OUTPUT); 
   pinMode(m1,OUTPUT);
   pinMode(m2,OUTPUT);
