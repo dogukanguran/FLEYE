@@ -13,13 +13,13 @@ void getgps(TinyGPS &gps);
 
 void setup()
 {
-  Serial.begin(115200);
+  Serial.begin(9600);
   uart_gps.begin(GPSBAUD);
   
-  Serial.println("");
-  Serial.println("GPS Shield QuickStart Example Sketch v12");
-  Serial.println("       ...waiting for lock...           ");
-  Serial.println("");
+//  Serial.println("");
+//  Serial.println("GPS Shield QuickStart Example Sketch v12");
+//  Serial.println("       ...waiting for lock...           ");
+//  Serial.println("");
 }
 
 void loop()
@@ -38,16 +38,16 @@ void getgps(TinyGPS &gps)
 {
   float latitude, longitude;
   gps.f_get_position(&latitude, &longitude);
-  Serial.print("Lat/Long: "); 
+  // Serial.print("Lat/Long: "); 
   Serial.print(latitude,5); 
-  Serial.print(", "); 
-  Serial.println(longitude,5);
-  
-  Serial.print("Altitude (meters): "); Serial.println(gps.f_altitude());  
-  Serial.print("Course (degrees): "); Serial.println(gps.f_course()); 
-  Serial.print("Speed(kmph): "); Serial.println(gps.f_speed_kmph());
-  Serial.println();
-  
+//  Serial.print(", "); 
+//  Serial.println(longitude,5);
+//  
+//  Serial.print("Altitude (meters): "); Serial.println(gps.f_altitude());  
+//  Serial.print("Course (degrees): "); Serial.println(gps.f_course()); 
+//  Serial.print("Speed(kmph): "); Serial.println(gps.f_speed_kmph());
+//  Serial.println();
+//  
   // Here you can print statistics on the sentences.
   unsigned long chars;
   unsigned short sentences, failed_checksum;

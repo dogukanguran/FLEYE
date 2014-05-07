@@ -25,9 +25,9 @@ MainWindow::MainWindow(QWidget *parent) :
     Signal s;
     QString str;
     str = "39.9206;32.8500";
-    forever {
-        s.checkSignal(str);
-    }
+    //forever {
+    s.checkSignal(str);
+    //}
 
 
 /*
