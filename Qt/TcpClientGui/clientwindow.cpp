@@ -21,14 +21,16 @@ ClientWindow::ClientWindow(QWidget *parent) :
 
     //We are starting to listen from any connection using 1235 port.
     server_.listen(QHostAddress::Any, 1235);
-    ui->swimmerLocationTextEdit->setText("Server Starts !...\n");
+    ui->swimmerLocationTextEdit->setText("No GPS data has been received yet.\n");
 
     //QUrl urlHq;
-    //urlHq.setUrl("http://maps.googleapis.com/maps/api/staticmap?center=39.8716863,32.7326193&zoom=16&size=800x400&maptype=satellite&sensor=false");
+    //urlHq.setUrl("https://blogs.commons.georgetown.edu/cctp-797-fall2013/files/2013/10/checkin.png");
+    //ui->webView->setUrl(urlHq);
 
+    //declaration of timer
     timer_ = new QTimer();
 
-
+    //load image and set it to invisible
     QPixmap pix("/Users/Cem/Desktop/FLEYE/Qt/emergency-alert.jpg");
     ui->alertImageLabel->setPixmap(pix);
     ui->alertImageLabel->setVisible(false);
@@ -37,6 +39,7 @@ ClientWindow::ClientWindow(QWidget *parent) :
     counter_ = 0;
 }
 
+//timer function for our alert image
 void ClientWindow::timeout()
 {
     if(counter_%2)
@@ -109,26 +112,39 @@ void ClientWindow::startRead()
     QUrl url;
     QString urlString="";
 
+
     char coordination1[10],coordination2[10];
 
     sprintf(coordination1,"%f",coordinates[0]);
     sprintf(coordination2,"%f",coordinates[1]);
 
+    //we concatanate our url string with our gps
     urlString.append("http://maps.googleapis.com/maps/api/staticmap?center=");
     urlString.append(coordination1);
     urlString.append(",");
     urlString.append(coordination2);
-    urlString.append("&zoom=16&size=800x400&maptype=satellite&sensor=false");
+    urlString.append("&zoom=18&size=800x400&maptype=satellite&sensor=true");
 
     url.setUrl(urlString);
     ui->webView->setUrl(url);
 
+    // our signal slot connector. It will enable us to call timeout function with timer
     connect(timer_, SIGNAL(timeout()), this, SLOT(timeout()));
 
     timer_->start(1000);
 
-    //ui->alertImageLabel->setVisible(true);
     server_.close();
+    client_->close();
 
 }
 
+
+void ClientWindow::on_pushButton_clicked()
+{
+    timer_->stop();
+    ui->alertImageLabel->setVisible(false);
+    ui->swimmerLocationTextEdit->setText("");
+    QUrl urlBlank;
+    //urlBlank.setUrl("https://blogs.commons.georgetown.edu/cctp-797-fall2013/files/2013/10/checkin.png");
+    //ui->webView->setUrl(urlBlank);
+}

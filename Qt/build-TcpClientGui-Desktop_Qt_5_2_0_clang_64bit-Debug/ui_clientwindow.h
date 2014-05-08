@@ -18,6 +18,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QToolBar>
@@ -34,6 +35,7 @@ public:
     QLabel *mapLabel;
     QWebView *webView;
     QLabel *alertImageLabel;
+    QPushButton *pushButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -70,6 +72,9 @@ public:
         alertImageLabel->setMidLineWidth(0);
         alertImageLabel->setScaledContents(true);
         alertImageLabel->setWordWrap(false);
+        pushButton = new QPushButton(centralWidget);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setGeometry(QRect(480, 330, 114, 32));
         ClientWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(ClientWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -93,6 +98,7 @@ public:
         swimmerLocationLabel->setText(QApplication::translate("ClientWindow", "Location of Swimmer", 0));
         mapLabel->setText(QApplication::translate("ClientWindow", "Location of Swimmer in the Map", 0));
         alertImageLabel->setText(QString());
+        pushButton->setText(QApplication::translate("ClientWindow", "Rescued!", 0));
     } // retranslateUi
 
 };

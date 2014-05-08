@@ -1,10 +1,11 @@
+#include "email.h"
+#include "login.h"
+#include "server.h"
 #include "signal.h"
+#include "smtp.h"
+
 #include <QtCore>
 #include <QSqlQuery>
-#include "login.h"
-#include "email.h"
-#include "server.h"
-#include "smtp.h"
 
 extern Coordination coordination;
 extern Server server;
@@ -42,10 +43,11 @@ bool Signal::checkSignal(QString gpsData)
         float hqX = query.value(3).toFloat();
         float hqY = query.value(4).toFloat();
 
-        // 0.005 means 200 meters distance from our headquarter coordinations. If Signal is coming from 200m. then process it.
-        if( hqX-x < -0.005 || hqX-x > 0.005 || hqY-y < -0.005 || hqY-y > 0.005 )
+        // 0.00250 means 100 meters distance from our headquarter coordinations. If Signal is coming from 100m. then process it.
+        if( hqX-x < -0.00250 || hqX-x > 0.00250 || hqY-y < -0.00250 || hqY-y > 0.00250 )
         {
             qDebug() << "Chance of incorrect data!" ;
+            return false;
         }
         else
         {
@@ -66,7 +68,6 @@ bool Signal::checkSignal(QString gpsData)
 
 
             // And we start the server to send swimmer's coordinates to the lifeguard's application.
-            //MAIN ICINE YAZINCA BAGLANIYOR ANCAK BURADA BAGLANMIYOR.
             server.start("127.0.0.1", 1235);
 
         }

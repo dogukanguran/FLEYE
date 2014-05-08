@@ -1,9 +1,12 @@
+#include "coordination.h"
 #include "server.h"
-#include <QHostAddress>
+
 #include <QCoreApplication>
 #include <QDebug>
+#include <QHostAddress>
+
 #include <sstream>
-#include "coordination.h"
+
 
 extern Coordination coordination;
 
@@ -41,17 +44,10 @@ void Server::sendLocationToLifeguard()
     qDebug() << "Sending GPS data to server\n";
 
     char f1Val[32],f2Val[32];
-    float f1 = 232.42424;
-    float f2 = 123.34333;
-    //float f1;
-    //float f2;
-
-    //f1 = co.getX();
-    //f2 = co.getY();
 
     // Here we used qDebug to see that our coordinations is true.
-    qDebug() << coordination.getX();
-    qDebug() << coordination.getY();
+    //qDebug() << coordination.getX();
+    //qDebug() << coordination.getY();
 
     //Converting float values to char array
     sprintf(f1Val,"%f",coordination.getX());

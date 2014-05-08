@@ -21,6 +21,7 @@ public:
     explicit MainWindow(QWidget* parent = 0);
     ~MainWindow();
     Ui::MainWindow *ui;
+    double haversine_km(double,double,double,double);
 
 
 private slots:

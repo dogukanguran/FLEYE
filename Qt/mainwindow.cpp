@@ -1,13 +1,14 @@
+#include "coordination.h"
 #include "database.h"
 #include "login.h"
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "xlsxdocument.h"
-#include "login.h"
+#include "math.h"
 #include "server.h"
 #include "signal.h"
-#include "coordination.h"
-#include "database.h"
+#include "xlsxdocument.h"
+#include "ui_mainwindow.h"
+
+#define d2r 0.0174532925199433
 
 Login *login;
 extern Coordination coordination;
@@ -57,7 +58,51 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //When we detect a coordination, we will check to validate the signal is for us
     //forever {
-    s.checkSignal(coordinationString);
+    if(s.checkSignal(coordinationString)==true)
+    {
+        ui->OnOff->setStyleSheet("QLabel { background-color: red } ");
+        ui->OnOff->setText("DANGER!");
+
+        //first we split that coordinate into two part
+        QStringList coordinates = coordinationString.split(";");
+
+        // then we get the location of headquarter from database
+        QSqlQuery query;
+        QString hqCity = "Ankara";
+        query.prepare("SELECT * FROM headquarter WHERE hqCity = :city ");
+        query.bindValue(":city",hqCity);
+        query.exec();
+        query.next();
+        float hqX = query.value(3).toFloat();
+        float hqY = query.value(4).toFloat();
+
+        // then using haversine_km function we are calculating the distance between two gps coordinates in kilometers.
+        // same formula applies for finding swimmer's distance from headquarter.
+        char distance[32];
+        double fleyeDistanceKm = haversine_km(coordinates[0].toDouble(),coordinates[1].toDouble(),hqX,hqY);
+
+        //converting kilometers to meters
+        sprintf(distance,"%.2f",fleyeDistanceKm*1000);
+        QString fleyeDistanceText;
+        fleyeDistanceText.append(distance);
+        fleyeDistanceText.append(" m.");
+        //then display it on the UI
+        ui->FLEYEDistanceText->setText(fleyeDistanceText);
+
+        //if distance is greater than 100 meters then paint it with red else use green
+        if(fleyeDistanceKm * 1000 > 100)
+        {
+            ui->FLEYEDistanceText->setStyleSheet("QLabel { background-color: red } ");
+        }
+        else
+        {
+            ui->FLEYEDistanceText->setStyleSheet("QLabel { background-color: green } ");
+        }
+    }
+    else
+    {
+
+    }
     //}
 
 
@@ -267,4 +312,15 @@ void MainWindow::on_logoutButton_clicked()
     login->setUsernameEditBlank();
     login->show();
     login->QWidget::setWindowTitle("Login");
+}
+
+double MainWindow::haversine_km(double lat1, double long1, double lat2, double long2)
+{
+    double dlong = (long2 - long1) * d2r;
+    double dlat = (lat2 - lat1) * d2r;
+    double a = pow(sin(dlat/2.0), 2) + cos(lat1*d2r) * cos(lat2*d2r) * pow(sin(dlong/2.0), 2);
+    double c = 2 * atan2(sqrt(a), sqrt(1-a));
+    double d = 6367 * c;
+
+    return d;
 }

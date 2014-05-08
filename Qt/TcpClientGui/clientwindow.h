@@ -31,6 +31,8 @@ private slots:
   void acceptConnection();
   void startRead();
 
+  void on_pushButton_clicked();
+
 private:
   QTcpServer server_;
   QTcpSocket* client_;

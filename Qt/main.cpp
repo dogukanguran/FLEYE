@@ -1,13 +1,13 @@
+#include "coordination.h"
 #include "database.h"
 #include "mainwindow.h"
 #include "login.h"
 #include "server.h"
 #include "xlsxdocument.h"
-#include "coordination.h"
+
 
 #include <QApplication>
 #include <QDebug>
-
 #include <QtSql>
 #include <QtDebug>
 #include <QtSql/QSqlDatabase>
