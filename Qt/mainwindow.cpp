@@ -23,9 +23,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->CoordinationToLifeGuardText->setStyleSheet("QLabel { background-color: green } ");
     ui->SwimmerDistanceText->setStyleSheet("QLabel { background-color: red } ");
 
+
+    // Since I am not able to get Xbee data, I am creating my Signal for demonstration.
+    // And I manually give a coordinate
     Signal s;
     QString str;
     str = "39.9206;32.8500";
+
+    //When we detect a coordination, we will check to validate the signal is for us
     //forever {
     s.checkSignal(str);
     //}

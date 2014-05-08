@@ -7,6 +7,7 @@
 
 extern Coordination coordination;
 
+//When server object is created, it will automatically call sendLocationToLifeguard method
 Server::Server(QObject* parent): QObject(parent)
 {
     connect(&server_, SIGNAL(connected()),
@@ -18,6 +19,7 @@ Server::~Server()
     server_.close();
 }
 
+//Server communication gets address and port. Then, starts the service
 void Server::start(QString address, quint16 port)
 {
     qDebug() << "Connection started";
@@ -26,12 +28,14 @@ void Server::start(QString address, quint16 port)
 
 }
 
+//Here we are converting float number to string
 std::string Convert (float number){
     std::ostringstream buff;
     buff<<number;
     return buff.str();
 }
 
+//Here we are checking coordination and send messages to the hospital and lifeguard.
 void Server::sendLocationToLifeguard()
 {
     qDebug() << "Sending GPS data to server\n";
@@ -45,12 +49,15 @@ void Server::sendLocationToLifeguard()
     //f1 = co.getX();
     //f2 = co.getY();
 
+    // Here we used qDebug to see that our coordinations is true.
     qDebug() << coordination.getX();
     qDebug() << coordination.getY();
 
+    //Converting float values to char array
     sprintf(f1Val,"%f",coordination.getX());
     sprintf(f2Val,"%f",coordination.getY());
 
+    //We concatanate the coordinates and send them to the client. ( Lifeguard )
     char* newArray = new char[std::strlen(f1Val)+std::strlen(f2Val)+1];
     std::strcpy(newArray,f1Val);
     std::strcat(newArray,":");

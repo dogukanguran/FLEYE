@@ -41,19 +41,19 @@ private slots:
         void readyRead();
 
 private:
-        QString message;
-        QTextStream *t;
-        QTcpSocket *socket;
-        QString from;
-        QString rcpt;
-        QString response;
-        QStringList recips;
-        QString server;
-        QString user;
-        QString pass;
-        int x;
+        QString message_;
+        QTextStream *t_;
+        QTcpSocket *socket_;
+        QString from_;
+        QString rcpt_;
+        QString response_;
+        QStringList recips_;
+        QString server_;
+        QString user_;
+        QString pass_;
+        int x_;
         enum states{Auth,User,Pass,Rcpt,Mail,Data,Init,Body,Quit,Close};
-        int state;
+        int state_;
 };
 
 #endif

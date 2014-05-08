@@ -41,26 +41,26 @@ public:
     {
         if (ClientWindow->objectName().isEmpty())
             ClientWindow->setObjectName(QStringLiteral("ClientWindow"));
-        ClientWindow->resize(625, 337);
+        ClientWindow->resize(598, 337);
         centralWidget = new QWidget(ClientWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         swimmerLocationLabel = new QLabel(centralWidget);
         swimmerLocationLabel->setObjectName(QStringLiteral("swimmerLocationLabel"));
-        swimmerLocationLabel->setGeometry(QRect(20, 30, 101, 20));
+        swimmerLocationLabel->setGeometry(QRect(20, 30, 191, 20));
         swimmerLocationTextEdit = new QTextEdit(centralWidget);
         swimmerLocationTextEdit->setObjectName(QStringLiteral("swimmerLocationTextEdit"));
-        swimmerLocationTextEdit->setGeometry(QRect(20, 60, 181, 81));
+        swimmerLocationTextEdit->setGeometry(QRect(20, 60, 211, 201));
         mapLabel = new QLabel(centralWidget);
         mapLabel->setObjectName(QStringLiteral("mapLabel"));
-        mapLabel->setGeometry(QRect(260, 30, 181, 16));
+        mapLabel->setGeometry(QRect(260, 30, 221, 20));
         webView = new QWebView(centralWidget);
         webView->setObjectName(QStringLiteral("webView"));
-        webView->setGeometry(QRect(290, 60, 321, 200));
+        webView->setGeometry(QRect(260, 60, 321, 200));
         webView->setUrl(QUrl(QStringLiteral("http://maps.googleapis.com/maps/api/staticmap?center=39.867136,32.749911&zoom=15&size=800x400&sensor=false")));
         ClientWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(ClientWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 625, 21));
+        menuBar->setGeometry(QRect(0, 0, 598, 22));
         ClientWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(ClientWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));

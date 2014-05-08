@@ -30,8 +30,8 @@ private slots:
 
 
 private:
-  QTcpServer server;
-  QTcpSocket* client;
+  QTcpServer server_;
+  QTcpSocket* client_;
   Ui::ClientWindow *ui;
 };
 
