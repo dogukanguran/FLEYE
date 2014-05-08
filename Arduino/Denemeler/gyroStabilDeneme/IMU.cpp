@@ -23,6 +23,13 @@ void IMU::init()
   altimeter.enableDefault();
   delay(100); // Wait for sensor to stabilize
 
+  /*
+  Calibration values; the default values of +/-32767 for each axis
+  lead to an assumed magnetometer bias of 0. Use the Calibrate example
+  program to determine appropriate values for your particular unit.
+  */
+  compass.m_min = (LSM303::vector<int16_t>){-32767, -32767, -32767};
+  compass.m_max = (LSM303::vector<int16_t>){+32767, +32767, +32767};
   gyro.read();
   compass.read();
 
@@ -116,6 +123,10 @@ void IMU::updateAltimeterValue(){
   currentValue = landingValue;
 }
 
+float IMU::getQuadDegree(){
+  return currentQuadDegree;
+}
+
 float IMU::getThrottle(){
   updateAltimeterValue();
   switch(isFlying()){
@@ -169,8 +180,7 @@ bool IMU::processAngles(float angles[],float rates[])
   gyroX = gyro.g.x;
   gyroY = gyro.g.y;
   gyroZ = gyro.g.z; 
-
-
+  currentQuadDegree = compass.heading();
 
   //Filter
   accXf = filterX.update(accX);
@@ -210,40 +220,6 @@ bool IMU::processAngles(float angles[],float rates[])
   rates[0]=   -  rac22* gyroXrate + rac22*gyroYrate;
   rates[1]= - rac22* gyroXrate - rac22*gyroYrate;
   rates[2]=  gyroZrate;
-
-  //  Serial.println("IMU.cpp");
-  //  Serial.println("Angles : ");
-  //  Serial.print(angles[0]);
-  //  Serial.print(",");
-  //  Serial.print(angles[1]);
-  //  Serial.print(",");
-  //  Serial.println(angles[2]);
-  //  Serial.println("Rates : ");
-  //  Serial.print(rates[0]);
-  //  Serial.print(",");
-  //  Serial.print(rates[1]);
-  //  Serial.print(",");
-  //  Serial.println(rates[2]);
-  //  Serial.println("");
-  //////* Print Data  for vib measurements*/
-  //  switch (j)
-  //  {
-  //
-  //  //	Frequency print
-  //  case 1: 
-  //  dtostrf(compAngleX - 180  ,6,2,StrAnglesvib);
-  //  Serial.print(StrAnglesvib); 
-  //  break;
-  //  case 2:
-  //  Serial.print("  ");
-  //  break;
-  //  case 3:
-  //  dtostrf(gyroXangle -180,6,2,StrAnglesvib);	
-  //  Serial.println(StrAnglesvib);
-  //  j=0;
-  //  break;
-  //  }	   
-  //  j++;
 
   if ( abs(angles[0]) < ROLL_MAX_IMU && abs(angles[1]) < PITCH_MAX_IMU  )
   {

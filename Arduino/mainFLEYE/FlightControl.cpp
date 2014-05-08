@@ -31,106 +31,40 @@ int FlightControl::getLoopTime(){
 int FlightControl::getAngleLoopDivider(){
   return 7;
 }
-void FlightControl::control(float targetAngles[], float angles[], float rates[], float throttle, Motors &motors, bool motorsReady, Imu &imu) {
 
-  //	//Setting gain of the PID
-  //	if (Serial.available() > 0) 
-  //	{ 
-  //		incomingByte = Serial.read();
-  //
-  //		if (incomingByte == 'P' )
-  //		{
-  //			Serial.print("Nouvelle valeur de kp_roll ");
-  //			kp_roll *= multiplier;
-  //			kd_roll *= multiplier;
-  //			ki_roll *= multiplier;
-  //			
-  //			//kp_rate_roll *= multiplier;
-  //			////ki_rate_roll *= multiplier;	
-  //			////kd_rate_roll *= multiplier;		
-  //		}
-  //		if (incomingByte == 'p' )
-  //		{
-  //			Serial.print("Nouvelle valeur de kp_roll ");
-  //			kp_roll /= multiplier;
-  //			kd_roll /= multiplier;
-  //			ki_roll /= multiplier;
-  //			
-  //			//kp_rate_roll /= multiplier;
-  //			//ki_rate_roll /= multiplier;
-  //			//kd_rate_roll /= multiplier;
-  //		}
-  //		
-  //		if (incomingByte == 'i' )
-  //		{
-  //			i_on=!i_on;
-  //		}
-  //		if (incomingByte == 'D' )
-  //		{
-  //			kd_roll *= multiplier;
-  //		}
-  //		if (incomingByte == 'd' )
-  //		{
-  //			kd_roll /= multiplier;
-  //		}
-  //		
-  //		if (incomingByte == 'R' )
-  //		{
-  //			kp_rate_roll *= multiplier;
-  //		}
-  //		if (incomingByte == 'r' )
-  //		{
-  //			kp_rate_roll /= multiplier;
-  //		}
-  //	}
+void FlightControl::control(float targetAngles[], float angles[], float rates[], float throttle, Motors &motors, bool motorsReady, IMU &imuInfo, GPS &gpsInfo) {
 
-
-  if (RATE_MODE){
-    //Speed Loop
-    //Only a Proportionnal feedback
-    for (int i = 0; i < 2 ; i++)
-    {
-      //targetRate[i] = targetAngles[i];
-      //ratesErrors[i] = targetRate[i] - rates[i];
-      ratesErrors[i] = targetAngles[i] - rates[i];
-      //ratesErrorsD[i] = kd_rate_roll*( ratesErrors[i] - ratesErrorsOld[i]) ;	
-      //ratesErrorsSum[i] += i_on*ki_rate_roll*ratesErrors[i];
-      //ratesErrorsSum[i]= i_on*constrain_f( anglesErrorsSum[i], -MAX_I_TERM, MAX_I_TERM);
-      //ratesErrorsOld[i] = ratesErrors[i];
-      sortiePIDrate[i] = kp_rate_roll * ratesErrors[i] ;//+  ratesErrorsSum[i] + ratesErrorsD[i];
-    }
-    U2 = 1*CONTROL_ON*kp_rate_roll * ratesErrors[0] ;
-    U3 = 1*CONTROL_ON*kp_rate_roll * ratesErrors[1] ;
-  }
-  else{
-    //Position Loop
-    if (counter_angle_loop==getAngleLoopDivider()){
-      for (int i = 0; i < 2 ; i++){
-        anglesErrors[i] = targetAngles[i] - angles[i];
-        anglesErrorsD[i] = kd_roll*( anglesErrors[i] - anglesErrorsOld[i]) ;
-        anglesErrorsSum[i] += i_on*ki_roll*anglesErrors[i];
-        anglesErrorsSum[i]= i_on*constrain_f( anglesErrorsSum[i], -MAX_I_TERM, MAX_I_TERM);
-        anglesErrorsOld[i] = anglesErrors[i];
-        sortiePIDangle[i] = kp_roll * anglesErrors[i] + anglesErrorsSum[i] + anglesErrorsD[i];	
-      }
-      counter_angle_loop=0;
-    }
-    //Speed Loop 
+  gps = &gpsInfo;
+  imu = &imuInfo;
+  //Position Loop
+  if (counter_angle_loop==getAngleLoopDivider()){
     for (int i = 0; i < 2 ; i++){
-      targetRate[i] = sortiePIDangle[i];
-      ratesErrors[i] = targetRate[i] - rates[i];
+      anglesErrors[i] = targetAngles[i] - angles[i];
+      anglesErrorsD[i] = kd_roll*( anglesErrors[i] - anglesErrorsOld[i]) ;
+      anglesErrorsSum[i] += i_on*ki_roll*anglesErrors[i];
+      anglesErrorsSum[i]= i_on*constrain_f( anglesErrorsSum[i], -MAX_I_TERM, MAX_I_TERM);
+      anglesErrorsOld[i] = anglesErrors[i];
+      sortiePIDangle[i] = kp_roll * anglesErrors[i] + anglesErrorsSum[i] + anglesErrorsD[i];	
     }
-
-    U2 = 1*CONTROL_ON*(kp_rate_roll * ratesErrors[0]);
-    U3 = 1*CONTROL_ON*(kp_rate_roll * ratesErrors[1]);
+    counter_angle_loop=0;
+  }
+  //Speed Loop 
+  for (int i = 0; i < 2 ; i++){
+    targetRate[i] = sortiePIDangle[i];
+    ratesErrors[i] = targetRate[i] - rates[i];
   }
 
+  leftOrRight = getTargetInfo(gpsInfo, imuInfo);
+  if(leftOrRight == 0)
+    U4=CONTROL_ON*0; //No Yaw control for the moment
+  else if(leftOrRight == 1)
+    U4 = CONTROL_ON * 0,5; // need to be tested to declare exact value
+  else if(leftOrRight == 2)
+    U4 = CONTROL_ON * -0,5; // need to be tested to declare exact value
+
+  U2 = 1*CONTROL_ON*(kp_rate_roll * ratesErrors[0]);
+  U3 = 1*CONTROL_ON*(kp_rate_roll * ratesErrors[1]);
   U1 = throttle*0.10;
-  U4=CONTROL_ON*0; //No Yaw control for the moment
-
-  
-  
-
 
   //Roll is control by M2 and M4 via U2
   //Ptich is control by M1 and M3 via U3
@@ -139,12 +73,15 @@ void FlightControl::control(float targetAngles[], float angles[], float rates[],
   w1 = 1* (U1 + U3 - U4); // raw value of motor1
   w4 = 1* (U1 - U2 + U4); // raw value of motor4
   w3 = 1* (U1 - U3 - U4); // raw value of motor3
-
+  
+  if(imuInfo.isFlying())
+    w4 += 1,0; // the estimated value. the value is needed to be tested.
+    
   // if values are less then 0(zero), ensure that the value of these variables should be at least 0(zero).
   if (w1<0){
     w1=0;
   } 
-
+  
   if (w2<0) {
     w2=0;
   }
@@ -173,6 +110,27 @@ void FlightControl::control(float targetAngles[], float angles[], float rates[],
   motors.setMotorSpeed(4, 1*w4);
 
   counter_angle_loop++;
+}
+
+int getTargetInfo(GPS &gps, IMU &imu){
+  if(imu.isFlying()){
+    float curDegree, tarDegree;
+    float diff;
+
+    curDegree = gps.getCurrentDegree();
+    tarDegree = gps.findTargetDegree();
+
+    diff = (tarDegree - curDegree) / 2.0;
+
+    if(diff < -10.0)
+      return 1; // makes quadcopter turn left
+    else if( diff > 10.0)
+      return 2; // makes quadcopter turn right
+    else
+      return 0;  // makes quadcopter not to change direction.
+  }
+  else 
+    return 0;
 }
 
 

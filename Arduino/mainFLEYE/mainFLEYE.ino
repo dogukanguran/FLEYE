@@ -20,6 +20,7 @@
 #include "GPS.h" 
 #include <SoftwareSerial.h>
 #include <TinyGPS.h> // library that reads the gps data from hardware
+#include "ServoMotor.h"
 
 bool calibrating = true;
 bool IMU_problem = false;
@@ -36,6 +37,9 @@ bool motorsReady = false;
 bool motorsReadyOld = false;
 bool motorsOn = false;
 
+// Robotic hand
+ServoMotor roboticHand;
+
 //IMU
 IMU imu;
 
@@ -46,7 +50,7 @@ float throttle;
 
 //GPS Location Info
 GPS gps;
-float flat, flon;
+float targetLat, targetLon;
 unsigned long age;
 
 //Measuring time
@@ -75,10 +79,12 @@ const int control_print_offset = motor_print_offset+7;
 // setup function will be executed only 1 time.
 void setup(){
   Wire.begin(); // need to begin to read data from hardware
-  imu.init(); // need to initiliaze to read data from hardware
+  imu.init(); // need to initialiaze to read data from hardware
   motors.init(); // setting the motors info
-  gps.init(); // need to initiliaze to read gps info from gps module
-
+  gps.init(); // need to initialiaze to read gps info from gps module
+  roboticHand.init(); // need to initialize to use robotic hand.
+  roboticHand.setIsHolding(); // quadcopter initially holding the life jacket
+  
   //End of the setup phase
   Serial.print("Setup done");
   calibrating = false;
@@ -86,6 +92,15 @@ void setup(){
 
 
 void loop(){
+  
+  // while(!Serial.available());
+  // if(Serial.available()){
+  //   targetLat = Serial.parseFloat();
+  //   targetLon = Serial.parseFloat();
+  //   gps.setTargetPosition(targetLat, targetLon); 
+  // }
+  
+  
   // Measure loop rate
   start_loop = micros();
   freq = 1000000/loop_time;
@@ -113,9 +128,18 @@ void loop(){
   // getting throttle multiplier according to the condition of the FLEYE at the moment.
   throttle = imu.getThrottle();
   // handle the stabilization issue.
-  flightControl.control(targetAngles, angles, rates, throttle, motors, motorsReady, imu);
+  flightControl.control(targetAngles, angles, rates, throttle, motors, motorsReady, imu, gps);
   
-  /* GPS tracking code will be added. Currently gps tracking code is not completed. */
+  // İf the distance is less than and equal 10 meters and FLEYE is not returning state.
+  if(gps.findLineBetweenCurAndTar() <= 0.0001 && !imu.isReturning()){
+    if(roboticHand.isHolding()){
+      roboticHand.letDrop(); // let the package drop
+      gps.getPosition(); // this changes the current value.
+      gps.setTargetReturn(); // sets your 
+      imu.setReturning();
+    }
+  }
+  
 }
 
 

@@ -19,7 +19,7 @@ void IMU::init()
   gyro.enableDefault();
   compass.enableDefault();
 
-  delay(100); // Wait for sensor to stabilize
+  delay(100); // Wait for sensors to stabilize
   // read values from the sensors
   gyro.read();
   compass.read();
@@ -46,13 +46,10 @@ void IMU::init()
   throttle = getMinThrottleValue();
   landing = false; // FLEYE is taking off from the ground
   flying = false; // FLEYE is not flying, FLEYE is taking off or landing.
-
+  returning = false; // FLEYE is returning home or not.
+  
   accXangle = (atan2(accX,accZ)+PI)*RAD_TO_DEG;
-  accYangle = (atan2(accY,accZ)+PI)*RAD_TO_DEG; //400
-
-  //kalmanX.setAngle(accXangle); // Set starting angle
-  //kalmanY.setAngle(accYangle);
-  //kalmanZ.setAngle(accZangle);
+  accYangle = (atan2(accY,accZ)+PI)*RAD_TO_DEG;
 
   gyroXangle = accXangle;
   gyroYangle = accYangle;
@@ -130,11 +127,21 @@ void IMU::updateAltimeterValue(){
   pressure = altimeter.readPressureMillibars();
   altitude = altimeter.pressureToAltitudeMeters(pressure);
   temperature = altimeter.readTemperatureC();
-  //Serial.print("Altitude : "); 
-  //Serial.println(altitude);
   // updates also landing value and current value.
   landingValue = altitude / getAltimeterDivider();
   currentValue = landingValue;
+}
+
+void IMU::setLanding(bool value){
+   landing = value;
+}
+
+void IMU::setFlying(bool value){
+  flying = value;
+}
+
+void IMU::setReturning(){
+  returning = true;
 }
 
 // calculates the new throttle value depending on the our condition which is takingoff/landing or flying.
@@ -168,6 +175,7 @@ float IMU::getThrottle(){
           throttle = getMaxThrottleValue();
       }
       else if (currentValue == targetValue){
+        landing = true; // change the landing value to false which means when FLEYE next action FLEYE 
         flying = true; // if FLEYE reaches the target altitude, then it's condition need to be changed to flying.
         
         /* GPS tracking will be added */
@@ -186,6 +194,10 @@ bool IMU::isFlying(){
 
 bool IMU::isLanding(){
   return landing;
+}
+
+bool IMU::isReturning(){
+  return returning;
 }
 
 bool IMU::processAngles(float angles[],float rates[])

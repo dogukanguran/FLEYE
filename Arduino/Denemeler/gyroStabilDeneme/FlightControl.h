@@ -51,12 +51,8 @@ public:
 	long loop_time;
 	char i_max;
 	bool i_on;
- 
-    
-    
-    
+     
 private:
-
 	
 	float U1, U2, U3, U4;
 	float w1, w2, w3, w4;

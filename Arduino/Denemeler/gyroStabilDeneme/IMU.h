@@ -33,6 +33,7 @@ public:
   bool processAngles(float angles[],float rates[] );
   void updateAltimeterValue();
   float getThrottle();
+  float getQuadDegree();
   bool isLanding();
   bool isFlying(); // indicates the FLEYE is not in the taking off / landing operations and goes to the target horizontally.
   
@@ -52,6 +53,8 @@ private:
   /* IMU Data */
   float accX, accY, accZ;
   float gyroX, gyroY, gyroZ;
+  
+  float currentQuadDegree; // stores the degree info according to the north
   
   float accXangle, accYangle, accZangle; // Angle calculate using the accelerometer
   float gyroXangle, gyroYangle, gyroZangle; // Angle calculate using the gyro

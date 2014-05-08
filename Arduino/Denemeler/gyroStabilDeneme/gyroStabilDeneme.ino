@@ -124,11 +124,11 @@ void loop(){
   //      throttle -= 10;
   //    if(throttle < 0)
   //      throttle = 0;  
-  //  }
-
+  //  
+  
   throttle = 10;
-    imu.processAngles(angles, rates);
-    flightControl.control(targetAngles, angles, rates, throttle, motors, motorsReady);
+  imu.processAngles(angles, rates);
+  flightControl.control(targetAngles, angles, rates, throttle, motors, motorsReady);
   delay(1000);
   //}
   //    else if(value == 2){

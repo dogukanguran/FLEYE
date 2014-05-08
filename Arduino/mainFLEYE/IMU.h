@@ -26,7 +26,10 @@
 class IMU{
 public:
   IMU();
-  void init();  
+  void init();
+  L3G gyro;
+  LSM303 compass;
+  LPS331 altimeter;  
   bool processAngles(float angles[],float rates[] );
   int getRollMaxImu();
   int getPitchMaxImu();
@@ -42,19 +45,19 @@ public:
   float getThrottle();
   bool isLanding(); // indicates the FLEYE is taking off or landing.
   bool isFlying(); // indicates the FLEYE is not in the taking off / landing operations and goes to the target horizontally.
-  
+  bool isReturning(); // indicates the FLEYE is going to the swimmer or HQ
+  void setLanding(bool value); 
+  void setFlying(bool value);
+  void setReturning();
 private:
-  L3G gyro;
-  LSM303 compass;
-  LPS331 altimeter;
-  
+
+
   int landingValue, // the value that the FLEYE is landing on the ground.
   currentValue, // current value which is divided by ALTIMETER_DIVIDER 
   targetValue;  // target value which is bigger one value from current value.
-  float throttle; 
-  bool landing, 
-  flying;
-  
+  float throttle;
+  bool landing, flying, returning;
+ 
   /* IMU Data */
   float accX, accY, accZ;
   float gyroX, gyroY, gyroZ;
@@ -71,8 +74,6 @@ private:
   float gyroYrate ;
   float gyroZrate;
 
-  //float xv[NZEROS+1], yv[NPOLES+1];
-  //float xv1[NZEROS+1], yv1[NPOLES+1];  
   float accXf;
   float accYf;
   float accZf;
@@ -91,4 +92,5 @@ private:
 };
 
 #endif
+
 

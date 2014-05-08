@@ -1,12 +1,9 @@
-/*
-  taken from github.
- */
 #include "ServoMotor.h"
-
+// initializing the servo motor.
 void ServoMotor::init(){
-  myServo.attach(9);
-  setIsHolding();
-  setMinMaxPosValues(0,90);
+  myServo.attach(getServoPin()); // using the port 9 of the arduino uno
+  setIsHolding(); // FLEYE initially holds the life jacket
+  setMinMaxPosValues(0,90); // robotic servo motor will be open 90 degree.
 }
 
 int ServoMotor::getServoPin(){
@@ -19,26 +16,28 @@ void ServoMotor::setMinMaxPosValues(int minPosition, int maxPosition){
 }
 
 void ServoMotor::setIsHolding(){
-  isHolding = true;
+  holding = 1;
 }
 
 void ServoMotor::setEmpty(){
-  isHolding = false;
+  holding = 0;
 }
 
-boolean ServoMotor::isHolding(){
-  return isHolding;
+bool ServoMotor::isHolding(){
+  return holding;
 }
 
-boolean ServoMotor::letDrop(){
+void ServoMotor::letDrop(){
+  // opens the robotic hand 90 degree
   for(int i = getMinPos(); i <= getMaxPos(); i++){
     myServo.write(i);
     delay(15);
   }
+  // close the hand after dropping.
   for(int i = getMaxPos(); i >= getMinPos(); i--){
     delay(15);
   }
-  setEmpty();
+  setEmpty(); // indicates FLEYE is not holding any life jacket.
 }
 
 int ServoMotor::getMinPos(){
