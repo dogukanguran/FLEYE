@@ -8,6 +8,7 @@
 #include <QTcpSocket>
 #include<QString>
 #include <string>
+#include "ui_clientwindow.h"
 using namespace std;
 
 namespace Ui {
@@ -22,16 +23,20 @@ public:
     explicit ClientWindow(QWidget *parent = 0);
     ~ClientWindow();
     QString data;
-    //std::string data;
+
+public slots:
+    void timeout();
+
 private slots:
   void acceptConnection();
   void startRead();
 
-
-
 private:
   QTcpServer server_;
   QTcpSocket* client_;
+  QTimer  *timer_;
+  QLabel  *label_;
+  int counter_;
   Ui::ClientWindow *ui;
 };
 

@@ -7,6 +7,7 @@
 #include "smtp.h"
 
 extern Coordination coordination;
+extern Server server;
 
 Signal::Signal()
 {
@@ -19,6 +20,7 @@ Signal::~Signal(){
 //In this function we are checking the signal is for us or not.
 bool Signal::checkSignal(QString gpsData)
 {
+
     //Splitting our coordinates and converting them into float again.
     float x,y;
     QString hqCity = "Ankara";
@@ -55,8 +57,8 @@ bool Signal::checkSignal(QString gpsData)
             QByteArray ba = str.toLocal8Bit();
             const char *c_str2 = ba.data();
             sprintf (buffer, "We need an ambulance over %s !! Coordinates: \nX: %f Y: %f",c_str2  ,hqX,hqY);
-            Email *sendEmail = new Email("c_ertug@ug.bilkent.edu.tr","turkishsoldier51@gmail.com",
-                                         "EMERGENCY!!",buffer);
+            //Email *sendEmail = new Email("c_ertug@ug.bilkent.edu.tr","turkishsoldier51@gmail.com",
+            //                             "EMERGENCY!!",buffer);
 
             coordination.setX(x);
             coordination.setY(y);
@@ -65,8 +67,8 @@ bool Signal::checkSignal(QString gpsData)
 
             // And we start the server to send swimmer's coordinates to the lifeguard's application.
             //MAIN ICINE YAZINCA BAGLANIYOR ANCAK BURADA BAGLANMIYOR.
-            //Server server;
-            //server.start("127.0.0.1", 1235);
+            server.start("127.0.0.1", 1235);
+
         }
     }
 

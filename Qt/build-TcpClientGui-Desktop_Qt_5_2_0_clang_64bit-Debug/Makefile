@@ -137,6 +137,7 @@ DIST          = ../../../../Applications/Qt/5.2.0/clang_64/mkspecs/features/spec
 		../../../../Applications/Qt/5.2.0/clang_64/mkspecs/features/qt_config.prf \
 		../../../../Applications/Qt/5.2.0/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../../Applications/Qt/5.2.0/clang_64/mkspecs/features/spec_post.prf \
+		../TcpClientGui/.qmake.stash \
 		../../../../Applications/Qt/5.2.0/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Applications/Qt/5.2.0/clang_64/mkspecs/features/default_pre.prf \
 		../../../../Applications/Qt/5.2.0/clang_64/mkspecs/features/mac/default_pre.prf \
@@ -292,6 +293,7 @@ Makefile: ../TcpClientGui/TcpClientGui.pro ../../../../Applications/Qt/5.2.0/cla
 		../../../../Applications/Qt/5.2.0/clang_64/mkspecs/features/qt_config.prf \
 		../../../../Applications/Qt/5.2.0/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../../Applications/Qt/5.2.0/clang_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../../Applications/Qt/5.2.0/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Applications/Qt/5.2.0/clang_64/mkspecs/features/default_pre.prf \
 		../../../../Applications/Qt/5.2.0/clang_64/mkspecs/features/mac/default_pre.prf \
@@ -418,6 +420,7 @@ Makefile: ../TcpClientGui/TcpClientGui.pro ../../../../Applications/Qt/5.2.0/cla
 ../../../../Applications/Qt/5.2.0/clang_64/mkspecs/features/qt_config.prf:
 ../../../../Applications/Qt/5.2.0/clang_64/mkspecs/macx-clang/qmake.conf:
 ../../../../Applications/Qt/5.2.0/clang_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../../Applications/Qt/5.2.0/clang_64/mkspecs/features/exclusive_builds.prf:
 ../../../../Applications/Qt/5.2.0/clang_64/mkspecs/features/default_pre.prf:
 ../../../../Applications/Qt/5.2.0/clang_64/mkspecs/features/mac/default_pre.prf:

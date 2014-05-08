@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>598</width>
-    <height>337</height>
+    <width>593</width>
+    <height>440</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -61,8 +61,44 @@
     </property>
     <property name="url">
      <url>
-      <string>http://maps.googleapis.com/maps/api/staticmap?center=39.867136,32.749911&amp;zoom=15&amp;size=800x400&amp;sensor=false</string>
+      <string>about:blank</string>
      </url>
+    </property>
+   </widget>
+   <widget class="QLabel" name="alertImageLabel">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>280</y>
+      <width>381</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <stylestrategy>PreferDefault</stylestrategy>
+     </font>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <property name="lineWidth">
+     <number>4</number>
+    </property>
+    <property name="midLineWidth">
+     <number>0</number>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+    <property name="wordWrap">
+     <bool>false</bool>
     </property>
    </widget>
   </widget>
@@ -71,7 +107,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>598</width>
+     <width>593</width>
      <height>22</height>
     </rect>
    </property>

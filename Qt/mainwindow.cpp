@@ -23,20 +23,45 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->CoordinationToLifeGuardText->setStyleSheet("QLabel { background-color: green } ");
     ui->SwimmerDistanceText->setStyleSheet("QLabel { background-color: red } ");
 
+    /*
+     * This part of code for the Series 2 Xbee modules. However, we have got Series 1 Xbee. Coder of the API says that 'this API should work with almost every Xbee. However, we could not get it working.
+     *
+    QSerialPort *serial = new QSerialPort();
+    serial->setPortName("/dev/tty.usbserial-AM01P46A");
+
+    QTXB *xb = new QTXB(serial);
+    QObject::connect(xb, SIGNAL(receivedATCommandResponse(ATCommandResponse*)), xb, SLOT(displayATCommandResponse(ATCommandResponse*)));
+    QObject::connect(xb, SIGNAL(receivedModemStatus(ModemStatus*)), xb, SLOT(displayModemStatus(ModemStatus*)));
+    QObject::connect(xb, SIGNAL(receivedTransmitStatus(TransmitStatus*)), xb, SLOT(displayTransmitStatus(TransmitStatus*)));
+    QObject::connect(xb, SIGNAL(receivedRXIndicator(RXIndicator*)), xb, SLOT(displayRXIndicator(RXIndicator*)));
+    QObject::connect(xb, SIGNAL(receivedRXIndicatorExplicit(RXIndicatorExplicit*)), xb, SLOT(displayRXIndicatorExplicit(RXIndicatorExplicit*)));
+    QObject::connect(xb, SIGNAL(receivedNodeIdentificationIndicator(NodeIdentificationIndicator*)), xb, SLOT(displayNodeIdentificationIndicator(NodeIdentificationIndicator*)));
+    QObject::connect(xb, SIGNAL(receivedRemoteCommandResponse(RemoteCommandResponse*)), xb, SLOT(displayRemoteCommandResponse(RemoteCommandResponse*)));
+
+    QByteArray address = QByteArray::fromHex("0013a20040a53581");
+    QString data = "Hello World";
+    forever{
+        //xb->broadcast(data);
+        xb->readData();
+        QTime dieTime= QTime::currentTime().addMSecs(500);
+        while( QTime::currentTime() < dieTime )
+            QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    }*/
+
 
     // Since I am not able to get Xbee data, I am creating my Signal for demonstration.
     // And I manually give a coordinate
     Signal s;
-    QString str;
-    str = "39.9206;32.8500";
+    QString coordinationString;
+    coordinationString = "39.96851;32.72679";
 
     //When we detect a coordination, we will check to validate the signal is for us
     //forever {
-    s.checkSignal(str);
+    s.checkSignal(coordinationString);
     //}
 
 
-/*
+    /*
     QSqlQuery queryIntro;
     queryIntro.prepare("SELECT * from login WHERE username = :username");
     queryIntro.bindValue(":username",username);

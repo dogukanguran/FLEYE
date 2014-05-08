@@ -33,6 +33,7 @@ public:
     QTextEdit *swimmerLocationTextEdit;
     QLabel *mapLabel;
     QWebView *webView;
+    QLabel *alertImageLabel;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -41,7 +42,7 @@ public:
     {
         if (ClientWindow->objectName().isEmpty())
             ClientWindow->setObjectName(QStringLiteral("ClientWindow"));
-        ClientWindow->resize(598, 337);
+        ClientWindow->resize(593, 440);
         centralWidget = new QWidget(ClientWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         swimmerLocationLabel = new QLabel(centralWidget);
@@ -56,11 +57,23 @@ public:
         webView = new QWebView(centralWidget);
         webView->setObjectName(QStringLiteral("webView"));
         webView->setGeometry(QRect(260, 60, 321, 200));
-        webView->setUrl(QUrl(QStringLiteral("http://maps.googleapis.com/maps/api/staticmap?center=39.867136,32.749911&zoom=15&size=800x400&sensor=false")));
+        webView->setUrl(QUrl(QStringLiteral("about:blank")));
+        alertImageLabel = new QLabel(centralWidget);
+        alertImageLabel->setObjectName(QStringLiteral("alertImageLabel"));
+        alertImageLabel->setGeometry(QRect(100, 280, 381, 91));
+        QFont font;
+        font.setStyleStrategy(QFont::PreferDefault);
+        alertImageLabel->setFont(font);
+        alertImageLabel->setFrameShape(QFrame::StyledPanel);
+        alertImageLabel->setFrameShadow(QFrame::Plain);
+        alertImageLabel->setLineWidth(4);
+        alertImageLabel->setMidLineWidth(0);
+        alertImageLabel->setScaledContents(true);
+        alertImageLabel->setWordWrap(false);
         ClientWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(ClientWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 598, 22));
+        menuBar->setGeometry(QRect(0, 0, 593, 22));
         ClientWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(ClientWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -79,6 +92,7 @@ public:
         ClientWindow->setWindowTitle(QApplication::translate("ClientWindow", "ClientWindow", 0));
         swimmerLocationLabel->setText(QApplication::translate("ClientWindow", "Location of Swimmer", 0));
         mapLabel->setText(QApplication::translate("ClientWindow", "Location of Swimmer in the Map", 0));
+        alertImageLabel->setText(QString());
     } // retranslateUi
 
 };
