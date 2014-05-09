@@ -27,7 +27,7 @@ void motorStop(){
 
 void setup(){
   Serial.begin(9600);
-  
+  delay(5000);
   pinMode(m0,OUTPUT); 
   pinMode(m1,OUTPUT);
   pinMode(m2,OUTPUT);
@@ -37,18 +37,18 @@ void setup(){
 boolean flag = false;
 
 void loop(){
-  if(Serial.available()){
+  //if(Serial.available()){
     if(flag == false){
     motorZeroLevel();
     delay(1000);
     motorInc();
     flag = true;  
   }
-    delay(5000);
+    delay(60000);
     if(flag == true)
       motorStop();
     
-  }
+ // }
 }
 
 

@@ -78,7 +78,7 @@ void loop(){
     motorInc();
     flag = true;  
   }
-    delay(5000);
+   delay(5000);
     if(flag == true)
       motorStop();
     
@@ -109,10 +109,3 @@ void loop(){
 //  unsigned short sentences, failed_checksum;
 //  gps.stats(&chars, &sentences, &failed_checksum);
 //}
-
-
-
-
-
-
-
