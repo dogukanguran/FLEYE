@@ -131,7 +131,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QSqlQuery query2;
     query2.prepare("SELECT name,surname FROM swimmer");
     query2.exec();
-    ui->comboBoxSwimmer->addItem("Select a lifeguard");
+    ui->comboBoxSwimmer->addItem("Select a swimmer");
     while(query2.next()) {
         QString name = query2.value(0).toString();
         QString surname = query2.value(1).toString();
