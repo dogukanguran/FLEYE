@@ -54,7 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // And I manually give a coordinate
     Signal s;
     QString coordinationString;
-    coordinationString = "39.96851;32.72679";
+    coordinationString = "39.87130;32.76402";
 
     //When we detect a coordination, we will check to validate the signal is for us
     //forever {
@@ -139,7 +139,39 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->comboBoxSwimmer->addItem(name);
     }
 
+    QUrl url;
+    QString urlString="";
+
+    QSqlQuery queryHq;
+    queryHq.prepare("SELECT * FROM headquarter");
+    queryHq.exec();
+    urlString.append("http://maps.googleapis.com/maps/api/staticmap?center=");
+
+    url.setUrl(urlString);
+    ui->webView->setUrl(url);
+    while(queryHq.next()) {
+        QString hqCountry = "Country: ";
+        hqCountry.append(queryHq.value(1).toString());
+        QString hqCity = queryHq.value(2).toString();
+        QString hqDirectionX = queryHq.value(5).toString();
+        QString hqDirectionY = queryHq.value(6).toString();
+        QString hqX = queryHq.value(3).toString();
+        QString hqY = queryHq.value(4).toString();
+        QString altitude = queryHq.value(7).toString();
+        QString hqName = queryHq.value(8).toString();
+        hqCountry.append("\nHeadquarter Name: "+hqName+"\nHeadquarter City: "+hqCity+"\nCoordinates:\nX: "+hqDirectionX+hqX+"\nY: "+hqDirectionY+hqY+"\nAltitude: "+altitude+" meters.");
+        ui->HqTextEdit->setText(hqCountry);
+        urlString.append(hqX);
+        urlString.append(",");
+        urlString.append(hqY);
+    }
+
+    urlString.append("&zoom=18&size=800x400&maptype=satellite&sensor=true");
+    ui->webView->setUrl(urlString);
+
 }
+
+
 
 
 
@@ -215,7 +247,7 @@ void MainWindow::on_TakeReportBySwimmer_clicked()
 {
     QString swimmerName="";
     swimmerName.append(ui->comboBoxSwimmer->currentText());
-    if( swimmerName.compare( swimmerName,"Select a lifeguard",Qt::CaseInsensitive) == 0 )
+    if( swimmerName.compare( swimmerName,"Select a Swimmer",Qt::CaseInsensitive) == 0 )
     {
         ui->reportBySwimmerText->setText("Please select a swimmer.");
     }

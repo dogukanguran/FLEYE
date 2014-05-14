@@ -59,8 +59,8 @@ bool Signal::checkSignal(QString gpsData)
             QByteArray ba = str.toLocal8Bit();
             const char *c_str2 = ba.data();
             sprintf (buffer, "We need an ambulance over %s !! Coordinates: \nX: %f Y: %f",c_str2  ,hqX,hqY);
-            //Email *sendEmail = new Email("c_ertug@ug.bilkent.edu.tr","turkishsoldier51@gmail.com",
-            //                             "EMERGENCY!!",buffer);
+            Email *sendEmail = new Email("c_ertug@ug.bilkent.edu.tr","turkishsoldier51@gmail.com",
+                                         "EMERGENCY!!",buffer);
 
             coordination.setX(x);
             coordination.setY(y);
@@ -68,7 +68,8 @@ bool Signal::checkSignal(QString gpsData)
 
 
             // And we start the server to send swimmer's coordinates to the lifeguard's application.
-            server.start("127.0.0.1", 1235);
+            server.start("139.179.142.40", 8888);
+            //server.disconnect();
 
         }
     }

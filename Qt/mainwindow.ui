@@ -60,12 +60,22 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="HQTab">
      <attribute name="title">
       <string>HQ Info</string>
      </attribute>
+     <widget class="QTextEdit" name="HqTextEdit">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>30</y>
+        <width>291</width>
+        <height>161</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="ReportTab">
      <attribute name="title">
@@ -449,14 +459,14 @@
     <property name="geometry">
      <rect>
       <x>190</x>
-      <y>340</y>
-      <width>501</width>
-      <height>251</height>
+      <y>320</y>
+      <width>431</width>
+      <height>271</height>
      </rect>
     </property>
     <property name="url">
      <url>
-      <string>http://maps.googleapis.com/maps/api/staticmap?center=39.867136,32.749911&amp;zoom=15&amp;size=600x300&amp;sensor=false</string>
+      <string>about:blank</string>
      </url>
     </property>
    </widget>
