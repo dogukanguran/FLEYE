@@ -8,6 +8,8 @@
 #include "xlsxdocument.h"
 #include "ui_mainwindow.h"
 
+#include <QDesktopServices>
+
 #define d2r 0.0174532925199433
 
 Login *login;
@@ -355,4 +357,17 @@ double MainWindow::haversine_km(double lat1, double long1, double lat2, double l
     double d = 6367 * c;
 
     return d;
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    //Local file
+    //QDesktopServices::openUrl(QUrl("/Users/Cem/Desktop/UserManual_FLEYE.pdf"));
+
+    QString urlString = "https://drive.google.com/file/d/0Bzd8AStWhTRXZ3loOUtSUHUwZ3M/edit?usp=sharing";
+    QUrl pathUrl;
+    pathUrl.setUrl(urlString);
+    QDesktopServices::openUrl(pathUrl);
+
+
 }

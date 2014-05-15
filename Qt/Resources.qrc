@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/PDF">
+        <file>UserManual_FLEYE.pdf</file>
+    </qresource>
+</RCC>

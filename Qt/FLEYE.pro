@@ -30,7 +30,6 @@ TEMPLATE = app
 
 QTPLUGIN += QSQLMYSQL
 
-
 LIBS += /Applications/MySQLWorkbench.app/Contents/Frameworks/libmysqlclient.18.dylib
 LIBS += -L/usr/local/lib
 LIBS += -L/Users/Cem/Applications/Qt/5.2.0/clang_64/lib
@@ -88,3 +87,6 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui \
     login.ui
+
+RESOURCES += \
+    Resources.qrc

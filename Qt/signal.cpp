@@ -68,7 +68,7 @@ bool Signal::checkSignal(QString gpsData)
 
 
             // And we start the server to send swimmer's coordinates to the lifeguard's application.
-            server.start("139.179.142.40", 8888);
+            server.start("127.0.0.1", 1235);
             //server.disconnect();
 
         }
